@@ -3,7 +3,7 @@ import Body from "@/components/Body";
 
 export default function Home() {
   return (
-    <main className='min-h-screen p-4'>
+    <main className='max-h-screen p-4'>
       <Nav/>
       <Body/>
       
