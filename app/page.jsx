@@ -5,8 +5,7 @@ export default function Home() {
   return (
     <main className='max-h-screen p-4'>
       <Nav/>
-      <Body/>
-      
+      <Body/>  
     </main>
   );
 }

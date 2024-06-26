@@ -1,5 +1,5 @@
 'use client'
-import { FaGithub, FaInstagram } from "react-icons/fa";
+import { FaGithub, FaInstagram, FaPlay } from "react-icons/fa";
 import gsap from "gsap";
 import {useGSAP} from "@gsap/react";
 import Image from "next/image";
@@ -61,9 +61,9 @@ const Body = () => {
             <img src="/path/to/image1.jpg" alt="A Pack of Cigarettes" className="w-full h-40 object-cover mb-2 rounded-lg" />
             <h2 className="text-xl font-medium mb-2 font-body">OUR PILOT PODCAST</h2>
           </div>
-          <button className="w-26 px-4 py-2 bg-black text-white rounded-full self-start">LISTEN &gt;</button>
+          <button className="h-20 w-20 flex items-center justify-center px-4 py-2 bg-black text-white rounded-full self-start"><FaPlay/></button>
         </div>
-        <div className="border p-4 rounded-3xl h-[475px] w-full flex flex-col justify-between bg-gray-50" id="card">
+        <div className="border p-4 rounded-3xl min-h-[475px] w-full flex flex-col justify-between bg-gray-50" id="card">
           <div className="bg-white p-4 rounded-2xl mb-2 border">
             <h2 className="text-xl font-medium font-body">CATEGORIES</h2>
             <div className="flex flex-wrap gap-2 mt-2">
@@ -81,16 +81,16 @@ const Body = () => {
             <img src="/path/to/image2.jpg" alt="History of Vinyl" className="w-full h-40 object-cover mb-2 rounded-lg" />
             <h2 className="text-xl font-medium mb-2 font-body">HISTORY OF VINYL</h2>
           </div>
-          <button className="w-26 px-4 py-2 bg-black text-white rounded-full self-start">LISTEN &gt;</button>
+          <button className="h-20 w-20 flex items-center justify-center px-4 py-2 bg-black text-white rounded-full self-start"><FaPlay/></button>
         </div>
-        <div className="bg-gray-50 border p-4 rounded-3xl h-[475px] w-full flex flex-col justify-between" id="card">
+        <div className="bg-gray-50 border p-4 rounded-3xl min-h-[475px] w-full flex flex-col justify-between" id="card">
           <div>
             <Image src={sapiens} alt="Podcast Image 3" width={100} height={100} className="w-full h-full object-cover" />
           </div>
-          <button className="w-26 px-4 py-2 bg-black text-white rounded-full self-start">GET IN TOUCH &gt;</button>
+          <button className="w-26 p-4 bg-black text-white rounded-full self-start">GET IN TOUCH</button>
         </div>
       </section>
-      <div className="mt-20 text-2xl w-full font-thin flex justify-between items-center">
+      <div className="mt-20 text-2xl w-full font-thin flex justify-between items-center font-body">
         <span className="xl:w-[40%]" id="sub-text">Discover a world of new sensations, listen to ai powered podcasts on all your favourite geners and fun.</span>
         <div className="flex gap-4 text-5xl" id="sub-icons">
           <FaGithub/>
