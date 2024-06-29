@@ -1,10 +1,8 @@
 import "@/app/globals.css";
-import { FaHome, FaSearch } from "react-icons/fa";
-import { MdOutlineLibraryMusic } from "react-icons/md";
-import { IoAddCircleSharp } from "react-icons/io5";
-import { CgProfile } from "react-icons/cg";
+import { MuseoModerno } from "next/font/google";
 import PodcastCard from "@/components/PodcastCard";
 import CategoryCard from "@/components/CategoryCard";
+import SidePanel from "@/components/SidePanel";
 
 const categories = [
   { title: 'category 1', image: '/path-to-image1.jpg' },
@@ -17,31 +15,13 @@ const categories = [
   { title: 'category 8', image: '/path-to-image8.jpg' },
   { title: 'category 9', image: '/path-to-image9.jpg' },
 ];
+const museo = MuseoModerno({ subsets: ["latin"], display:"swap" });
 
 const Home = () => {
   return (
-    <main className="h-screen flex w-screen font-body">
-      <div className="p-4 flex flex-col justify-between border-r h-full bg-white fixed z-10 xl:w-[150px] w-fit">
-        <div className="text-xl flex flex-col gap-5">
-          <span className="p-2 border-b h-16 flex justify-start items-center font-normal">
-            <FaHome/>&nbsp;<span className="xl:flex hidden text-black">Home</span>
-          </span>
-          <span className="p-2 border-b h-16 flex justify-start items-center font-normal">
-            <FaSearch/>&nbsp;<span className="xl:flex hidden text-black">Search</span>
-          </span>
-          <span className="p-2 border-b h-16 flex justify-start items-center font-normal">
-            <MdOutlineLibraryMusic/>&nbsp;<span className="xl:flex hidden text-black">Library</span>
-          </span> 
-        </div>
-        <div className="text-xl flex flex-col gap-5">
-          <span className="p-2 h-16 flex justify-start items-center">
-            <IoAddCircleSharp/>&nbsp;<span className="xl:flex hidden text-black">Create</span>
-          </span>
-          <span className="p-2 h-16 flex justify-start items-center">
-            <CgProfile/>&nbsp;<span className="xl:flex hidden text-black">Profile</span>
-          </span>
-        </div>
-      </div>
+    <div className={museo.className}> 
+    <main className="h-screen flex w-screen">
+      <SidePanel/>
       <div className="w-full xl:pl-[150px] pl-[72px]">
         <div className="flex-1 w-full text-4xl p-2 flex justify-between items-center border-b bg-lime-200 fixed z-1">
           <span>voxcast.ai</span>
@@ -74,6 +54,7 @@ const Home = () => {
         </div>
       </div>
     </main>
+    </div>
   )
 }
 

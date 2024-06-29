@@ -1,7 +1,7 @@
 import { MuseoModerno } from "next/font/google";
 import "./globals.css";
 
-const mueso = MuseoModerno({ subsets: ["latin"] });
+const museo = MuseoModerno({ subsets: ["latin"], display:"swap" });
 
 export const metadata = {
   title: "voxcast.ai",
@@ -11,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={mueso.className}>{children}</body>
+      <body className={museo.className}>{children}</body>
     </html>
   );
 }
