@@ -1,10 +1,22 @@
-import "@/app/globals.css"
-import { FaHome, FaSearch, FaPlay, FaHeart, FaMoon } from "react-icons/fa"
+import "@/app/globals.css";
+import { FaHome, FaSearch } from "react-icons/fa";
 import { MdOutlineLibraryMusic } from "react-icons/md";
 import { IoAddCircleSharp } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import PodcastCard from "@/components/PodcastCard";
+import CategoryCard from "@/components/CategoryCard";
 
+const categories = [
+  { title: 'category 1', image: '/path-to-image1.jpg' },
+  { title: 'category 2', image: '/path-to-image2.jpg' },
+  { title: 'category 3', image: '/path-to-image3.jpg' },
+  { title: 'category 4', image: '/path-to-image4.jpg' },
+  { title: 'category 5', image: '/path-to-image5.jpg' },
+  { title: 'category 6', image: '/path-to-image6.jpg' },
+  { title: 'category 7', image: '/path-to-image7.jpg' },
+  { title: 'category 8', image: '/path-to-image8.jpg' },
+  { title: 'category 9', image: '/path-to-image9.jpg' },
+];
 
 const Home = () => {
   return (
@@ -35,9 +47,12 @@ const Home = () => {
           <span>voxcast.ai</span>
         </div>
         <div className="px-4 pt-16 flex flex-col overflow-y-scroll max-h-screen no-scrollbar">
-        <div className="mt-4">
-          <span className="text-3xl border-b ml-2 flex w-full justify-between items-baseline">Categories <span className="text-lg text-gray-400">show more</span></span>            <div className="my-2 flex gap-3">
-              {/* yahan pe place krna hai categories wala cards that i told you, categories is empty now */}
+          <div className="mt-4">
+            <span className="text-3xl border-b ml-2 flex w-full justify-between items-baseline">Categories <span className="text-lg text-gray-400">show more</span></span>
+            <div className="my-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-3 gap-3">
+              {categories.map((category, index) => (
+                <CategoryCard key={index} title={category.title} image={category.image} />
+              ))}
             </div>
           </div>
           <div className="mt-4">
@@ -51,7 +66,8 @@ const Home = () => {
             </div>
           </div>
           <div className="mt-4">
-          <span className="text-3xl border-b ml-2 flex w-full justify-between items-baseline">New Release <span className="text-lg text-gray-400">show more</span></span>            <div className="my-2 flex gap-3">
+            <span className="text-3xl border-b ml-2 flex w-full justify-between items-baseline">New Release <span className="text-lg text-gray-400">show more</span></span>
+            <div className="my-2 flex gap-3">
               <PodcastCard/>
             </div>
           </div>
