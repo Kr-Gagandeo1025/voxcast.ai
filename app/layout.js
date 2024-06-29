@@ -1,7 +1,7 @@
-import { Inter } from "next/font/google";
+import { MuseoModerno } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const mueso = MuseoModerno({ subsets: ["latin"] });
 
 export const metadata = {
   title: "voxcast.ai",
@@ -11,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={mueso.className}>{children}</body>
     </html>
   );
 }
