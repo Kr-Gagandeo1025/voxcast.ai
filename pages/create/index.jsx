@@ -98,7 +98,7 @@ const Create = () => {
                     </label>
                     <label htmlFor="podcast-story" className="flex flex-col">
                         <span className="flex justify-between items-center">give your podcast a story : {storyloader?<CgSpinner className="animate-spin text-3xl"/>:<button className="flex items-center text-lg bg-gray-200 p-2 rounded-xl" onClick={handleGenerateStory}>generate story &nbsp; <RiAiGenerate/> </button>}</span>
-                        <textarea id="podcast-title" className="border-b border-black outline-none mt-4 text-lg" value={podcastStory} onChange={handleStory} />
+                        <textarea id="podcast-title" className="border-b border-black outline-none mt-4 text-lg" rows={10} value={podcastStory} onChange={handleStory} />
                     </label>
                     <div className="flex w-full">
                         <label className="flex gap-4 items-center w-1/2">

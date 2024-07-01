@@ -3,6 +3,7 @@ import React from 'react';
 import voxcastailogo from '@/public/voxcastailogo.png';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FaArrowRight } from 'react-icons/fa';
 
 const Nav = ({isSigned}) => {
   return (
@@ -16,7 +17,7 @@ const Nav = ({isSigned}) => {
       {/* Login/Sign Up (right) */}
       {isSigned? 
           <div className='border border-gray-300 rounded-full w-fit flex gap-4'>
-            <Link href='/home'><button className='h-full p-4 font-body font-medium'>HOME</button></Link>
+            <Link href='/home'><button className='flex gap-2 items-center h-full p-4 font-body font-medium'>HOME <FaArrowRight/></button></Link>
         </div>
       :
         <div className='border border-gray-300 rounded-full w-fit flex gap-4'>

@@ -9,15 +9,15 @@ import { ClerkProvider } from "@clerk/nextjs";
 // import { useEffect, useState } from "react";
 
 const categories = [
-  { title: 'category 1', image: '/path-to-image1.jpg' },
-  { title: 'category 2', image: '/path-to-image2.jpg' },
-  { title: 'category 3', image: '/path-to-image3.jpg' },
-  { title: 'category 4', image: '/path-to-image4.jpg' },
-  { title: 'category 5', image: '/path-to-image5.jpg' },
-  { title: 'category 6', image: '/path-to-image6.jpg' },
-  { title: 'category 7', image: '/path-to-image7.jpg' },
-  { title: 'category 8', image: '/path-to-image8.jpg' },
-  { title: 'category 9', image: '/path-to-image9.jpg' },
+  { title: 'category 1', image: '' },
+  { title: 'category 2', image: '' },
+  { title: 'category 3', image: '' },
+  { title: 'category 4', image: '' },
+  { title: 'category 5', image: '' },
+  { title: 'category 6', image: '' },
+  { title: 'category 7', image: '' },
+  { title: 'category 8', image: '' },
+  { title: 'category 9', image: '' },
 ];
 const museo = MuseoModerno({ subsets: ["latin"], display:"swap" });
 
@@ -52,11 +52,7 @@ const Home = () => {
           </div>
           <div className="mt-4">
             <span className="text-3xl border-b ml-2 flex w-full justify-between items-baseline">Trending <span className="text-lg text-gray-400">show more</span></span>
-            <div className="my-2 flex xl:justify-around overflow-x-scroll gap-4 no-scrollbar">
-              <PodcastCard/>
-              <PodcastCard/>
-              <PodcastCard/>
-              <PodcastCard/>
+            <div className="my-2 flex overflow-x-scroll gap-3">
               <PodcastCard/>
             </div>
           </div>

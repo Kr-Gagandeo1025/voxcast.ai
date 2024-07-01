@@ -1,9 +1,10 @@
 'use client'
-import { FaGithub, FaInstagram, FaPlay } from "react-icons/fa";
+import { FaArrowRight, FaGithub, FaInstagram, FaPlay } from "react-icons/fa";
 import gsap from "gsap";
 import {useGSAP} from "@gsap/react";
 import Image from "next/image";
 import sapiens from "@/public/svgs/sapiens.svg"
+import Link from "next/link";
 const Body = () => {
   useGSAP(()=>{
     gsap.fromTo('#card',{
@@ -47,8 +48,8 @@ const Body = () => {
     <main className="p-4 h-full mt-20">
       {/* Adjusted spacing between logo and title */}
       <div className="flex xl:flex-row flex-col justify-between items-center mb-10 mt-2" id="title">
-        <h1 className="xl:text-5xl text-3xl font-medium">THE CHOICE OF OUR USERS</h1>
-        <a href="#" className="text-black text-s font-normal mt-4">SHOW MORE &gt;</a>
+        <h1 className="xl:text-5xl text-3xl font-medium">THE AI PODCAST - Discover, Imagine, Create </h1>
+        <Link href="/home" className="text-black text-s font-normal mt-4 flex items-center gap-2">discover <FaArrowRight className="text-sm"/></Link>
       </div>
       <section className="flex justify-center items-center flex-wrap gap-4 h-[50%]">
         {/* New Card */}
@@ -58,10 +59,16 @@ const Body = () => {
         {/* Existing Cards */}
         <div className="bg-gray-50 border p-4 rounded-3xl h-[475px] w-[350px] flex flex-col justify-between" id="card">
           <div>
-            <img src="/path/to/image1.jpg" alt="A Pack of Cigarettes" className="w-full h-40 object-cover mb-2 rounded-lg" />
-            <h2 className="text-xl font-medium mb-2 ">OUR PILOT PODCAST</h2>
+            <h2 className="text-xl font-medium mb-2 ">ABOUT US</h2>
+            <Image src="/voxcastailogo.png" alt="A Pack of Cigarettes" height={100} width={100} className="w-full h-full object-contain mb-2 rounded-lg" />
           </div>
-          <button className="h-20 w-20 flex items-center justify-center px-4 py-2 bg-black text-white rounded-full self-start"><FaPlay/></button>
+          <div className="flex items-center justify-center">
+            {/* <button className="h-20 w-20 flex items-center justify-center px-4 py-2 bg-black text-white rounded-full self-start"><FaPlay/></button> */}
+            <audio controls controlsList="nodownload">
+              <source src="/ex_audios/voxcast_intro.mp3" type="audio/mpeg"/>
+              no audio support
+            </audio>
+          </div>
         </div>
         <div className="border p-4 rounded-3xl min-h-[475px] w-[350px] flex flex-col justify-between bg-gray-50" id="card">
           <div className="bg-white p-4 rounded-2xl mb-2 border">
@@ -77,22 +84,30 @@ const Body = () => {
             </div>
         </div>
         <div className="bg-gray-50 border p-4 rounded-3xl h-[475px] w-[350px] flex flex-col justify-between" id="card">
-          <div>
-            <img src="/path/to/image2.jpg" alt="History of Vinyl" className="w-full h-40 object-cover mb-2 rounded-lg" />
-            <h2 className="text-xl font-medium mb-2">HISTORY OF VINYL</h2>
+          <div className="flex flex-col h-full">
+            <h2 className="text-xl font-medium mb-2">MAN IN BLACK SUIT - example podcast</h2>
+            <Image src="/images/tmibsthumbnail.jpeg" alt="mibs-thumbnail" width={200} height={200} className="w-full h-full object-cover mb-2 rounded-lg" />
           </div>
-          <button className="h-20 w-20 flex items-center justify-center px-4 py-2 bg-black text-white rounded-full self-start"><FaPlay/></button>
+          <div className="flex items-center justify-center">
+            {/* <button className="h-20 w-20 flex items-center justify-center px-4 py-2 bg-black text-white rounded-full self-start"><FaPlay/></button> */}
+            <audio controls controlsList="nodownload">
+              <source src="/ex_audios/man_in_black_suit.mp3" type="audio/mpeg"/>
+              no audio support
+            </audio>
+          </div>
         </div>
         <div className="bg-gray-50 border p-4 rounded-3xl min-h-[475px] w-[350px] flex flex-col justify-between" id="card">
           <div>
             <Image src={sapiens} alt="Podcast Image 3" width={100} height={100} className="w-full h-full object-cover" />
           </div>
-          <button className="w-26 p-4 bg-black text-white rounded-full self-start">GET IN TOUCH</button>
+          <Link href="mailto:voxcastai@gmail.com" target="_blank">
+            <button className="w-26 p-4 bg-black text-white rounded-full self-start">GET IN TOUCH</button>
+          </Link>
         </div>
       </section>
-      <div className="mt-20 text-2xl w-full font-medium flex justify-between items-center">
-        <span className="xl:w-[40%]" id="sub-text">Discover a world of new sensations, listen to ai powered podcasts on all your favourite geners and fun.</span>
-        <div className="flex gap-4 text-5xl" id="sub-icons">
+      <div className="mt-20 text-2xl w-full font-medium flex xl:flex-row flex-col justify-between items-center">
+        <span className="xl:w-[40%] text-sm xl:text-lg text-gray-400" id="sub-text">Discover a world of new sensations, listen to ai powered podcasts on all your favourite geners and fun.</span>
+        <div className="flex gap-4 xl:text-5xl text-3xl" id="sub-icons">
           <FaGithub/>
           <FaInstagram/>
         </div>

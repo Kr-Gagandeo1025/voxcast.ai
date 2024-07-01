@@ -21,7 +21,7 @@ const model = genAI.getGenerativeModel({model:"gemini-1.5-flash",safetySetting})
 
 // gemini model func for podcast story generation
 export async function getStory(storyPrompt){
-    const genResult = await model.generateContent(storyPrompt+". If this seems like a topic then generate a podcast for this or else try to complete it like a podcast story. Dont include any music suggestions or background score just generate plain texts for the podcast");
+    const genResult = await model.generateContent(storyPrompt+". If this seems like a topic then generate a podcast for this or else try to complete it like a podcast story. Do not include roles and music mentions.");
     const response = await genResult.response;
     const text = response.text();
     return(text);
