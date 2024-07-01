@@ -2,8 +2,9 @@
 import React from 'react';
 import voxcastailogo from '@/public/voxcastailogo.png';
 import Image from 'next/image';
+import Link from 'next/link';
 
-const Nav = () => {
+const Nav = ({isSigned}) => {
   return (
     <div className='flex justify-between items-center flex-wrap'>
       {/* Logo (left) */}
@@ -13,10 +14,16 @@ const Nav = () => {
       </div>
 
       {/* Login/Sign Up (right) */}
-      <div className='border border-gray-300 rounded-full w-fit flex gap-4'>
-        <button className='pl-4 font-body font-medium'>LOGIN</button>
-        <button className='h-full bg-lime-200 rounded-full py-4 px-4 font-body font-medium'>SIGN UP &gt;</button>
-      </div>
+      {isSigned? 
+          <div className='border border-gray-300 rounded-full w-fit flex gap-4'>
+            <Link href='/home'><button className='h-full p-4 font-body font-medium'>HOME</button></Link>
+        </div>
+      :
+        <div className='border border-gray-300 rounded-full w-fit flex gap-4'>
+          <Link href='/sign-in'><button className='h-full pl-4 font-body font-medium'>SIGN IN</button></Link>
+          <Link href='/sign-up'><button className='h-full bg-lime-200 rounded-full py-4 px-4 font-body font-medium'>SIGN UP</button></Link>
+        </div>
+      }
     </div>
   );
 };

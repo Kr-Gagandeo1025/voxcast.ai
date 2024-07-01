@@ -3,6 +3,7 @@ import { MdOutlineLibraryMusic } from "react-icons/md";
 import { IoAddCircleSharp } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import Link from "next/link";
+import SingOutBtn from "@/components/SingOutBtn";
 
 const SidePanel = () => {
   return (
@@ -27,7 +28,12 @@ const SidePanel = () => {
             </Link>
           </span>
           <span className="p-2 h-16 flex justify-start items-center">
-            <CgProfile/>&nbsp;<span className="xl:flex hidden text-black">Profile</span>
+            <Link href="/user-profile" className="flex items-center justify-center">
+              <CgProfile/>&nbsp;<span className="xl:flex hidden text-black">Profile</span>
+            </Link>
+          </span>
+          <span className="flex text-sm">
+            <SingOutBtn/>
           </span>
         </div>
       </div>

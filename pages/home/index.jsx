@@ -1,8 +1,12 @@
+'use client'
 import "@/app/globals.css";
 import { MuseoModerno } from "next/font/google";
 import PodcastCard from "@/components/PodcastCard";
 import CategoryCard from "@/components/CategoryCard";
 import SidePanel from "@/components/SidePanel";
+import { ClerkProvider } from "@clerk/nextjs";
+// import { currentUser } from '@clerk/nextjs/server';
+// import { useEffect, useState } from "react";
 
 const categories = [
   { title: 'category 1', image: '/path-to-image1.jpg' },
@@ -17,8 +21,19 @@ const categories = [
 ];
 const museo = MuseoModerno({ subsets: ["latin"], display:"swap" });
 
+
 const Home = () => {
+  // const [user,setUser] = useState(null)
+  // const getUser = async() =>{
+  //   const {user} = await currentUser();
+  //   setUser(user);
+  // }
+  // useEffect(()=>{
+  //   getUser();
+  // },[])
+  
   return (
+    <ClerkProvider>
     <div className={museo.className}> 
     <main className="h-screen flex w-screen">
       <SidePanel/>
@@ -55,6 +70,7 @@ const Home = () => {
       </div>
     </main>
     </div>
+    </ClerkProvider>
   )
 }
 
