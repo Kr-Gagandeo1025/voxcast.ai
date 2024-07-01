@@ -15,7 +15,9 @@ const SidePanel = () => {
             </Link>
           </span>
           <span className="p-2 border-b h-16 flex justify-start items-center font-normal">
-            <FaSearch/>&nbsp;<span className="xl:flex hidden text-black">Search</span>
+            <Link href="/search" className="flex items-center justify-center">
+              <FaSearch/>&nbsp;<span className="xl:flex hidden text-black">Search</span>
+            </Link>
           </span>
           <span className="p-2 border-b h-16 flex justify-start items-center font-normal">
             <MdOutlineLibraryMusic/>&nbsp;<span className="xl:flex hidden text-black">Library</span>
