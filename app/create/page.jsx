@@ -23,6 +23,7 @@ const Create = () => {
   const [audioUrl, setAudioUrl] = useState(null);
   const [audioLoader, setAudioLoader] = useState(false);
   const [storyCharCount, setStoryCharCount] = useState(0);
+  const maxStoryChar = 2000;
 
   const {user} = useUser();
 
@@ -40,12 +41,9 @@ const Create = () => {
 
   const handleStory = (e) => {
     e.preventDefault();
-    if(storyCharCount <= 2000){
-      setStoryCharCount((podcastStory.split("").length));
+    if (e.target.value.length <= maxStoryChar) {
+      setStoryCharCount(e.target.value.length);
       setPodcastStory(e.target.value);
-    }else{
-      setPodcastStory((e.target.value).slice(0,2000))
-      setStoryCharCount(2000);
     }
   };
 
@@ -162,7 +160,7 @@ const Create = () => {
                 </label>
                 <label htmlFor="podcast-story" className="flex flex-col">
                   <span className="flex justify-between xl:items-center xl:flex-row flex-col items-start">
-                    <span>give your podcast a story : <span className="text-sm text-gray-400">{storyCharCount}/2000 chars</span></span> 
+                    <span>give your podcast a story : <span className="text-sm text-gray-400">{storyCharCount}/{maxStoryChar} chars</span></span> 
                     {storyLoader ? <CgSpinner className="animate-spin text-3xl" /> : <button className="flex items-center xl:text-lg text-sm bg-gray-200 p-2 rounded-xl" onClick={handleGenerateStory}>generate story &nbsp; <RiAiGenerate /> </button>}</span>
                   <textarea id="podcast-title" className="border-b border-black outline-none mt-4 text-lg" rows={10} value={podcastStory} onChange={handleStory} />
                 </label>
