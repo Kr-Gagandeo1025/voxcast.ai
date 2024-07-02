@@ -1,14 +1,9 @@
-import { ClerkProvider, UserProfile } from "@clerk/nextjs";
-import "@/app/globals.css";
+import { UserProfile } from "@clerk/nextjs";
 import SidePanel from "@/components/SidePanel";
-import { MuseoModerno } from "next/font/google";
-
-const museo = MuseoModerno({ subsets: ["latin"], display:"swap" });
 
 export default function UserProfilePage(){
     return(
-        <ClerkProvider>
-            <div className={museo.className}>
+            <div>
             <SidePanel/>
             <div className="w-screen h-screen xl:pl-[150px] pl-[72px] flex items-center justify-between">
                 <div className="flex flex-col items-center justify-center h-full w-fit pl-4">
@@ -20,7 +15,6 @@ export default function UserProfilePage(){
                 </div>
             </div>
             </div>
-        </ClerkProvider>
     )
 }
     

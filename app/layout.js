@@ -1,8 +1,9 @@
 import { MuseoModerno } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider} from "@clerk/nextjs";
 
 const museo = MuseoModerno({ subsets: ["latin"], display:"swap" });
+
 
 export const metadata = {
   title: "voxcast.ai",

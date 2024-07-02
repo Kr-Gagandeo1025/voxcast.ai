@@ -1,12 +1,8 @@
-import "@/app/globals.css";
-import { MuseoModerno } from "next/font/google";
-import { ClerkProvider } from "@clerk/nextjs";
+'use client'
 import SidePanel from "@/components/SidePanel";
 import { FaSearch } from "react-icons/fa";
 import PodcastCard from "@/components/PodcastCard";
 import { useState } from "react";
-
-const museo = MuseoModerno({ subsets: ["latin"], display: "swap" });
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -24,8 +20,6 @@ const Search = () => {
   ];
 
   return (
-    <ClerkProvider>
-      <div className={museo.className}>
         <main className="h-screen w-screen flex">
           <SidePanel />
           <div className="w-full xl:pl-[150px] pl-[72px]">
@@ -73,8 +67,6 @@ const Search = () => {
             </div>
           </div>
         </main>
-      </div>
-    </ClerkProvider>
   );
 };
 

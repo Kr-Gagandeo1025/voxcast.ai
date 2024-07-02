@@ -37,7 +37,7 @@ const SidePanel = () => {
               <CgProfile/>&nbsp;<span className="xl:flex hidden">Profile</span>
             </Link>
           </span>
-          <span className="flex text-sm">
+          <span className="flex text-sm justify-center items-center">
             <SingOutBtn/>
           </span>
         </div>
