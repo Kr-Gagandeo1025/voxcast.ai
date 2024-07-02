@@ -8,7 +8,7 @@ import SingOutBtn from "@/components/SingOutBtn";
 
 const SidePanel = () => {
   return (
-    <div className="p-4 flex flex-col justify-between border-r h-full bg-white fixed z-10 xl:w-[150px] md:w-[60px] sm:w-[60px]">
+    <div className="p-4 flex flex-col justify-between border-r h-full bg-white fixed z-20 xl:w-[150px] md:w-[60px] sm:w-[60px]">
         <div className="text-xl flex flex-col gap-5">
           <span className="p-2 border-b h-16 flex justify-start items-center font-normal">
             <Link href="/home" className="flex items-center justify-center">

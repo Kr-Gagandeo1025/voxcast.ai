@@ -149,7 +149,7 @@ const Create = () => {
           <SidePanel />
           <div className="w-full xl:pl-[150px] pl-[72px]">
             {/* <h1>{user}</h1> */}
-            <div className="flex-1 w-full text-4xl p-2 flex justify-between items-center border-b bg-lime-200 fixed z-1">
+            <div className="flex-1 w-full text-4xl p-2 flex justify-between items-center border-b bg-lime-200 fixed z-9">
               <span>voxcast.ai</span>
             </div>
             <div className="px-4 pt-16 flex flex-col overflow-y-scroll h-screen no-scrollbar">
