@@ -3,6 +3,7 @@ import SidePanel from "@/components/SidePanel";
 import { FaSearch } from "react-icons/fa";
 import PodcastCard from "@/components/PodcastCard";
 import { useState } from "react";
+import HomeTopBar from "@/components/HomeTopBar";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,23 +18,22 @@ const Search = () => {
     { title: "Suggestion 3", description: "Description for suggestion 3", author: "Author 3" },
     { title: "Suggestion 4", description: "Description for suggestion 4", author: "Author 4" },
     { title: "Suggestion 5", description: "Description for suggestion 5", author: "Author 5" },
+    { title: "Suggestion 5", description: "Description for suggestion 5", author: "Author 5" },
   ];
 
   return (
-        <main className="h-screen w-screen flex">
+        <main className="h-screen w-screen flex bg-gradient-to-tl from-stone-100 via-transparent to-lime-200">
           <SidePanel />
-          <div className="w-full xl:pl-[150px] pl-[72px]">
-            <div className="flex-1 w-full text-4xl p-2 flex justify-between items-center border-b bg-lime-200 fixed z-10">
-              <span>voxcast.ai</span>
-            </div>
+          <div className="w-full xl:pl-[150px] lg:pl-[59px] pl-[62px]">
+            <HomeTopBar/>
             <div className="px-4 pt-16 flex flex-col overflow-y-scroll h-screen no-scrollbar">
               <div className="text-3xl flex items-center mb-8 mt-4">
                 <div className="relative flex items-center w-full">
-                  <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 pr-2" />
+                  <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-black pr-2" />
                   <input
                     type="text"
-                    placeholder="What do you want to play?"
-                    className="border border-gray-300 rounded-lg px-4 py-2 w-full text-lg outline-none pl-12"
+                    placeholder="search..."
+                    className="border border-black border-dashed bg-transparent bg-white bg-opacity-30 rounded-lg px-4 py-2 w-full text-lg outline-none pl-12"
                     value={searchTerm}
                     onChange={handleSearchChange}
                   />
@@ -45,7 +45,7 @@ const Search = () => {
               {searchTerm === "" && (
                 <div>
                   <div className="text-3xl mb-4">Suggestions</div>
-                  <div className="flex flex-wrap gap-8">
+                  <div className="flex gap-8 overflow-x-scroll no-scrollbar">
                     {suggestions.map((suggestion, index) => (
                       <PodcastCard
                         key={index}

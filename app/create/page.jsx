@@ -11,6 +11,7 @@ import { CgSpinner } from "react-icons/cg";
 import Image from "next/image";
 import toast, { Toaster } from 'react-hot-toast';
 import { useUser } from "@clerk/nextjs";
+import HomeTopBar from "@/components/HomeTopBar";
 
 const Create = () => {
   const voice_options = ['Alloy', 'Echo', 'Fable', 'Onyx', 'Nova', 'Shimmer'];
@@ -65,6 +66,7 @@ const Create = () => {
       } else if (podcastTitle !== "") {
         const genStory = await getStory(podcastTitle);
         setPodcastStory(genStory);
+        setStoryCharCount(podcastStory.length)
       } else {
         toast.error("Please atleast enter a title!!")      }
     } catch (e) {
@@ -143,26 +145,23 @@ const Create = () => {
   return (
       <div>
         <Toaster/>
-        <main className="h-screen flex w-screen">
+        <main className="h-screen flex w-screen bg-gradient-to-tl from-stone-100 via-transparent to-lime-200">
           <SidePanel />
           <div className="w-full xl:pl-[150px] pl-[72px]">
-            {/* <h1>{user}</h1> */}
-            <div className="flex-1 w-full text-4xl p-2 flex justify-between items-center border-b bg-lime-200 fixed z-9">
-              <span>voxcast.ai</span>
-            </div>
+            <HomeTopBar/>
             <div className="px-4 pt-16 flex flex-col overflow-y-scroll h-screen no-scrollbar">
               <span>Hello, @{user?.username}</span>
               <span className='xl:text-3xl text-2xl inline-block'>give your imagined podcast wings with voxcast.ai <WiStars className="text-yellow-500 text-5xl inline-block" /></span>
               <div className="pt-8 xl:text-2xl text-xl flex flex-col gap-8">
                 <label htmlFor="podcast-title" className="flex flex-col">
                   name your podcast :
-                  <input type="text" id="podcast-title" className="border-b border-black outline-none mt-4 text-lg" value={podcastTitle} onChange={handleTitle} />
+                  <input type="text" id="podcast-title" className="border-b border-black bg-transparent outline-none mt-4 text-lg" value={podcastTitle} onChange={handleTitle} />
                 </label>
                 <label htmlFor="podcast-story" className="flex flex-col">
                   <span className="flex justify-between xl:items-center xl:flex-row flex-col items-start">
                     <span>give your podcast a story : <span className="text-sm text-gray-400">{storyCharCount}/{maxStoryChar} chars</span></span> 
                     {storyLoader ? <CgSpinner className="animate-spin text-3xl" /> : <button className="flex items-center xl:text-lg text-sm bg-gray-200 p-2 rounded-xl" onClick={handleGenerateStory}>generate story &nbsp; <RiAiGenerate /> </button>}</span>
-                  <textarea id="podcast-title" className="border-b border-black outline-none mt-4 text-lg" rows={10} value={podcastStory} onChange={handleStory} />
+                  <textarea id="podcast-title" className="border-b border-black bg-transparent outline-none mt-4 text-lg" rows={10} value={podcastStory} onChange={handleStory} />
                 </label>
                 <div className="flex w-full flex-col lg:flex-row gap-4">
                   <label className="flex flex-col lg:flex-row gap-4 items-start w-full lg:w-1/2">

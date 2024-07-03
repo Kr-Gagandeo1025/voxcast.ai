@@ -45,19 +45,19 @@ const Body = () => {
     })
   })
   return (
-    <main className="p-4 h-full mt-20">
+    <main className="p-6 h-full mt-20 bg-transparent">
       {/* Adjusted spacing between logo and title */}
       <div className="flex xl:flex-row flex-col justify-between items-center mb-10 mt-2" id="title">
-        <h1 className="xl:text-5xl text-3xl font-medium">THE AI PODCAST - Discover, Imagine, Create </h1>
+        <h1 className="xl:text-5xl text-3xl font-bold">THE AI PODCAST - Discover, Imagine, Create </h1>
         <Link href="/home" className="text-black text-s font-normal mt-4 flex items-center gap-2">discover <FaArrowRight className="text-sm"/></Link>
       </div>
       <section className="flex justify-center items-center flex-wrap gap-4 h-[50%]">
         {/* New Card */}
-        <div className="bg-lime-200 p-4 rounded-3xl h-[475px] w-[350px] flex items-center justify-center" id="card">
+        <div className="backdrop-blur-xl border border-black bg-transparent backdrop-filter shadow-lg bg-opacity-30 bg-white p-4 rounded-3xl h-[475px] w-[350px] flex items-center justify-center" id="card">
           <h2 className="text-3xl font-medium text-black">VOXCAST.AI</h2>
         </div>
         {/* Existing Cards */}
-        <div className="bg-gray-50 border p-4 rounded-3xl h-[475px] w-[350px] flex flex-col justify-between" id="card">
+        <div className="backdrop-blur-xl border border-black bg-transparent backdrop-filter shadow-lg bg-opacity-30 bg-white p-4 rounded-3xl h-[475px] w-[350px] flex flex-col justify-between" id="card">
           <div>
             <h2 className="text-xl font-medium mb-2 ">ABOUT US</h2>
             <Image src="/voxcastailogo.png" alt="A Pack of Cigarettes" height={100} width={100} className="w-full h-full object-contain mb-2 rounded-lg" />
@@ -70,12 +70,12 @@ const Body = () => {
             </audio>
           </div>
         </div>
-        <div className="border p-4 rounded-3xl min-h-[475px] w-[350px] flex flex-col justify-between bg-gray-50" id="card">
-          <div className="bg-white p-4 rounded-2xl mb-2 border">
+        <div className="backdrop-blur-xl bg-transparent border border-black backdrop-filter shadow-lg bg-opacity-30 bg-white p-4 rounded-3xl min-h-[475px] w-[350px] flex flex-col justify-between" id="card">
+          <div className="bg-white p-4 rounded-2xl mb-2 border bg-transparent bg-opacity-40">
             <h2 className="text-xl font-medium ">CATEGORIES</h2>
             <div className="flex flex-wrap gap-2 mt-2">
               {['Knowledge', 'News', 'Exclusive', 'Books', 'Music', 'Podcasts'].map((section) => (
-                <span key={section} className="bg-gray-200 px-2 py-1 rounded">{section}</span>
+                <span key={section} className="bg-white bg-transparent px-2 py-1 rounded">{section}</span>
               ))}
             </div>
           </div>
@@ -83,7 +83,7 @@ const Body = () => {
               <Image src={'/svgs/sapiens1.svg'} alt="girl w phone" width={100} height={100} className="h-full w-full object-cover"/>
             </div>
         </div>
-        <div className="bg-gray-50 border p-4 rounded-3xl h-[475px] w-[350px] flex flex-col justify-between" id="card">
+        <div className="backdrop-blur-xl bg-transparent backdrop-filter border border-black shadow-lg bg-opacity-30 bg-white p-4 rounded-3xl h-[475px] w-[350px] flex flex-col justify-between" id="card">
           <div className="flex flex-col h-full">
             <h2 className="text-xl font-medium mb-2">MAN IN BLACK SUIT - example podcast</h2>
             <Image src="/images/tmibsthumbnail.jpeg" alt="mibs-thumbnail" width={200} height={200} className="w-full h-full object-cover mb-2 rounded-lg" />
@@ -96,7 +96,7 @@ const Body = () => {
             </audio>
           </div>
         </div>
-        <div className="bg-gray-50 border p-4 rounded-3xl min-h-[475px] w-[350px] flex flex-col justify-between" id="card">
+        <div className="backdrop-blur-xl bg-transparent backdrop-filter border border-black shadow-lg bg-opacity-30 bg-white p-4 rounded-3xl min-h-[475px] w-[350px] flex flex-col justify-between" id="card">
           <div>
             <Image src={sapiens} alt="Podcast Image 3" width={100} height={100} className="w-full h-full object-cover" />
           </div>
@@ -106,7 +106,7 @@ const Body = () => {
         </div>
       </section>
       <div className="mt-20 text-2xl w-full font-medium flex xl:flex-row flex-col justify-between items-center">
-        <span className="xl:w-[40%] text-sm xl:text-lg text-gray-400" id="sub-text">Discover a world of new sensations, listen to ai powered podcasts on all your favourite geners and fun.</span>
+        <span className="xl:w-[40%] text-sm xl:text-lg text-black" id="sub-text">Discover a world of new sensations, listen to ai powered podcasts on all your favourite geners and fun.</span>
         <div className="flex gap-4 xl:text-5xl text-3xl" id="sub-icons">
           <FaGithub/>
           <FaInstagram/>

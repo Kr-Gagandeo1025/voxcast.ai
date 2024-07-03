@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 const CategoryCard = ({ title, image }) => {
   return (
-    <div className="flex items-center p-2 rounded-md bg-gray-100 text-black sm:p-4 lg:p-6 md:h-20 xl:p-4 xl:h-20">
+    <div className="flex items-center justify-start p-2 rounded-md bg-white backdrop-blur-xl border border-dashed border-black bg-opacity-30 text-black sm:p-4 lg:p-6 md:h-20 xl:p-4 xl:h-20">
       <Image 
         src={image} 
         alt={title} 

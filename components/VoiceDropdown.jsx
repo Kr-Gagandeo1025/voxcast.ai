@@ -36,7 +36,7 @@ const VoiceDropdown = ({ options, onSelect }) => {
       </div>
 
       {isOpen && (
-        <div className="origin-top-right absolute right-0 mt-2 xl:w-56 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+        <div className="origin-top-right absolute left-0 mt-2 xl:w-56 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
           <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
             {options.map((option, index) => (
               <button

@@ -8,19 +8,19 @@ import SingOutBtn from "@/components/SingOutBtn";
 
 const SidePanel = () => {
   return (
-    <div className="p-4 flex flex-col justify-between border-r h-full bg-white fixed z-20 xl:w-[150px] md:w-[60px] sm:w-[60px]">
+    <div className="p-4 flex flex-col justify-between border-r border-black h-full bg-white bg-transparent bg-opacity-30 backdrop-blur-xl backdrop-filter fixed z-20 xl:w-[150px] md:w-[60px] sm:w-[60px]">
         <div className="text-xl flex flex-col gap-5">
-          <span className="p-2 border-b h-16 flex justify-start items-center font-normal">
+          <span className="p-2 border-b border-black h-16 flex justify-start items-center font-normal">
             <Link href="/home" className="flex items-center justify-center">
               <FaHome/>&nbsp;<span className="xl:flex hidden">Home</span>
             </Link>
           </span>
-          <span className="p-2 border-b h-16 flex justify-start items-center font-normal">
+          <span className="p-2 border-b border-black h-16 flex justify-start items-center font-normal">
             <Link href="/search" className="flex items-center justify-center">
               <FaSearch/>&nbsp;<span className="xl:flex hidden">Search</span>
             </Link>
           </span>
-          <span className="p-2 border-b h-16 flex justify-start items-center font-normal">
+          <span className="p-2 border-b border-black h-16 flex justify-start items-center font-normal">
             <Link href="/library" className="flex items-center justify-center">
               <MdOutlineLibraryMusic/>&nbsp;<span className="xl:flex hidden">Library</span>
             </Link>
