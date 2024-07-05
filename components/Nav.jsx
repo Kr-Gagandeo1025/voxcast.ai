@@ -10,7 +10,7 @@ const Nav = ({isSigned}) => {
     <div className='flex justify-between items-center flex-wrap backdrop-blur-xl bg-transparent backdrop-filter bg-opacity-30 bg-white w-full border-b border-black py-2 px-4'>
       {/* Logo (left) */}
       <div className='flex items-center'>
-        <Image src={voxcastailogo} height={50} width={50} className='h-11 mr-2' alt='voxcast.ai logo' />
+        {/* <Image src={voxcastailogo} height={50} width={50} className='h-11 mr-2' alt='voxcast.ai logo' /> */}
         <span className='xl:text-4xl text-2xl font-bold'>voxcast.ai</span>
       </div>
 

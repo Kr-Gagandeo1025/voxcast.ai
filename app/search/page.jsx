@@ -26,7 +26,7 @@ const Search = () => {
           <SidePanel />
           <div className="w-full xl:pl-[150px] lg:pl-[59px] pl-[62px]">
             <HomeTopBar/>
-            <div className="px-4 pt-16 flex flex-col overflow-y-scroll h-screen no-scrollbar">
+            <div className="px-4 ml-2 pt-16 flex flex-col overflow-y-scroll h-screen no-scrollbar">
               <div className="text-3xl flex items-center mb-8 mt-4">
                 <div className="relative flex items-center w-full">
                   <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-black pr-2" />

@@ -33,7 +33,7 @@ const SidePanel = () => {
             </Link>
           </span>
           <span className="p-2 h-16 flex justify-start items-center">
-            <Link href="/user-profile" className="flex items-center justify-center">
+            <Link href="/myprofile" className="flex items-center justify-center">
               <CgProfile/>&nbsp;<span className="xl:flex hidden">Profile</span>
             </Link>
           </span>

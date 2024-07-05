@@ -5,7 +5,10 @@ const nextConfig = {
           {
             protocol: 'https',
             hostname: 'ai-studio-assets.limewire.media',
-          },
+          },{
+            protocol: 'https',
+            hostname: 'img.clerk.com',
+          }
         ],
       },
 };

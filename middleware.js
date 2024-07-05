@@ -7,6 +7,8 @@ import {
     '/home(.*)',
     '/create(.*)',
     '/search(.*)',
+    '/myprofile(.*)',
+    '/user-profile(.*)',
   ]);
   
   export default clerkMiddleware((auth, req) => {

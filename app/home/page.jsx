@@ -11,10 +11,6 @@ const categories = [
   { title: 'category 3', image: '' },
   { title: 'category 4', image: '' },
   { title: 'category 5', image: '' },
-  { title: 'category 6', image: '' },
-  { title: 'category 7', image: '' },
-  { title: 'category 8', image: '' },
-  { title: 'category 9', image: '' },
 ];
 
 const Home = () => {
@@ -34,15 +30,16 @@ const Home = () => {
             </div>
           </div>
           <div className="mt-6">
-            <span className="text-3xl ml-2 flex w-full justify-between items-baseline">Trending <span className="text-lg text-gray-400">show more</span></span>
-            <div className="my-2 flex overflow-x-scroll gap-8 no-scrollbar pl-2">
+            <span className="xl:text-3xl text-2xl ml-2 flex w-full justify-between items-baseline">Trending <span className="xl:text-lg text-sm text-gray-400">show more</span></span>
+            <div className="my-2 flex overflow-x-scroll gap-4 no-scrollbar pl-2">
               <PodcastCard key={1} title={"Dummy Podcast 1"} author={"owner"} likes={32}/>
               <PodcastCard key={1} title={"Dummy Podcast 1"} author={"owner"} likes={32}/>
             </div>
           </div>
           <div className="mt-6">
-            <span className="text-3xl ml-2 flex w-full justify-between items-baseline">New Release <span className="text-lg text-gray-400">show more</span></span>
-            <div className="my-2 flex gap-3 overflow-x-scroll no-scrollbar pl-2">
+            <span className="xl:text-3xl text-2xl ml-2 flex w-full justify-between items-baseline">New Release <span className="xl:text-lg text-sm text-gray-400">show more</span></span>
+            <div className="my-2 flex gap-4 overflow-x-scroll no-scrollbar pl-2">
+              <PodcastCard key={1} title={"Dummy Podcast 1"} author={"owner"} likes={32}/>
               <PodcastCard key={1} title={"Dummy Podcast 1"} author={"owner"} likes={32}/>
             </div>
           </div>

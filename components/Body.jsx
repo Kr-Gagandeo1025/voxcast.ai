@@ -106,7 +106,7 @@ const Body = () => {
         </div>
       </section>
       <div className="mt-20 text-2xl w-full font-medium flex xl:flex-row flex-col justify-between items-center">
-        <span className="xl:w-[40%] text-sm xl:text-lg text-black" id="sub-text">Discover a world of new sensations, listen to ai powered podcasts on all your favourite geners and fun.</span>
+        <span className="xl:w-[40%] text-sm xl:text-lg text-black" id="sub-text">Discover a world of new sensations, listen to ai powered podcasts on all your favourite genres and fun.</span>
         <div className="flex gap-4 xl:text-5xl text-3xl" id="sub-icons">
           <FaGithub/>
           <FaInstagram/>

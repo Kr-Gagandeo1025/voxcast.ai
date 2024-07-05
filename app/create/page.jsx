@@ -2,16 +2,17 @@
 import SidePanel from "@/components/SidePanel";
 import VoiceDropdown from "@/components/VoiceDropdown";
 import { getAIAudio, getStory, getThumbnail } from "@/app/utils/actions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaGlobe } from "react-icons/fa";
 import { MdDelete, MdUpload } from "react-icons/md";
 import { RiAiGenerate } from "react-icons/ri";
 import { WiStars } from "react-icons/wi";
-import { CgSpinner } from "react-icons/cg";
+import { CgLink, CgSpinner } from "react-icons/cg";
 import Image from "next/image";
 import toast, { Toaster } from 'react-hot-toast';
 import { useUser } from "@clerk/nextjs";
 import HomeTopBar from "@/components/HomeTopBar";
+import Link from "next/link";
 
 const Create = () => {
   const voice_options = ['Alloy', 'Echo', 'Fable', 'Onyx', 'Nova', 'Shimmer'];
@@ -24,9 +25,19 @@ const Create = () => {
   const [audioUrl, setAudioUrl] = useState(null);
   const [audioLoader, setAudioLoader] = useState(false);
   const [storyCharCount, setStoryCharCount] = useState(0);
+  const [isCreator,setisCreator] = useState(false);
   const maxStoryChar = 2000;
 
   const {user} = useUser();
+  const username = user?.username;
+  const useremailId = user?.emailAddresses[0].emailAddress;
+
+
+  useEffect(()=>{
+    if(username==="gagandeo" || username==="prernaxa"){
+      setisCreator(true);
+    }
+  },[username]);
 
   const handleVoiceSelect = (option) => {
     if(option!==null){
@@ -48,13 +59,36 @@ const Create = () => {
     }
   };
 
-  const handlePublish = () => {
-    console.log({
-      "Title": podcastTitle,
-      "Story": podcastStory,
-      "Voice": selectedVoice
-    });
-    toast.error("Cannot Publish ! This is a demo publishing is not allowed!");
+  const handlePublish = async(e) => {
+    e.preventDefault();
+    if(podcastTitle !== "" && podcastStory !== "" && audioUrl !== null && thumbnail !== null){
+      try{
+        const response = await fetch('/api/upload-podcast',{
+          method: "POST",
+          headers: {
+            'Content-Type':'application/json',
+          },
+          body: JSON.stringify({
+            username:username,
+            email:useremailId,
+            podcast_title:podcastTitle,
+            podcast_story:podcastStory,
+            podcast_audio:audioUrl,
+            podcast_thumbnail:thumbnail,
+          }),
+        });
+        const result = await response.json();
+        if(response.ok){
+          toast.success(`Podcast Upload Success ! with ID: ${result.id} for @${username}`);
+        }else{
+          toast.error("unable to upload...");
+        }
+      }catch(error){
+        console.log(error);
+      }
+    }else{
+      toast.error("Fields missing...! Please complete the Process !");
+    }
   };
 
   const handleGenerateStory = async () => {
@@ -147,12 +181,12 @@ const Create = () => {
         <Toaster/>
         <main className="h-screen flex w-screen bg-gradient-to-tl from-stone-100 via-transparent to-lime-200">
           <SidePanel />
-          <div className="w-full xl:pl-[150px] pl-[72px]">
+          <div className="w-full xl:pl-[150px] lg:pl-[59px] pl-[62px]">
             <HomeTopBar/>
-            <div className="px-4 pt-16 flex flex-col overflow-y-scroll h-screen no-scrollbar">
+            <div className="px-4 ml-2 pt-16 flex flex-col overflow-y-scroll h-screen no-scrollbar">
               <span>Hello, @{user?.username}</span>
               <span className='xl:text-3xl text-2xl inline-block'>give your imagined podcast wings with voxcast.ai <WiStars className="text-yellow-500 text-5xl inline-block" /></span>
-              <div className="pt-8 xl:text-2xl text-xl flex flex-col gap-8">
+              {isCreator?<div className="pt-8 xl:text-2xl text-xl flex flex-col gap-8">
                 <label htmlFor="podcast-title" className="flex flex-col">
                   name your podcast :
                   <input type="text" id="podcast-title" className="border-b border-black bg-transparent outline-none mt-4 text-lg" value={podcastTitle} onChange={handleTitle} />
@@ -194,11 +228,26 @@ const Create = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-wrap-reverse justify-end gap-4 pb-2">
-                  <button className="flex items-center border rounded-xl px-4 py-2" onClick={handleDiscard}>Discard&nbsp;<MdDelete /></button>
-                  <button className="flex items-center border rounded-xl px-4 py-2" onClick={handlePublish}>Publish&nbsp;<FaGlobe /></button>
-                </div>
+                {user &&
+                  <div className="flex flex-wrap-reverse justify-end gap-4 pb-2">
+                    <button className="flex items-center border rounded-xl px-4 py-2" onClick={handleDiscard}>Discard&nbsp;<MdDelete /></button>
+                    <button className="flex items-center border rounded-xl px-4 py-2" onClick={handlePublish}>Publish&nbsp;<FaGlobe /></button>
+                  </div>
+                }
               </div>
+              :
+              <div className="text-xl mt-20">
+                  <Link href="/myprofile">
+                    <span className="font-bold w-fit flex items-center justify-center gap-2 p-2 border border-black rounded-xl cursor-pointer">Enter Waitlist - Navigate to Profile<CgLink/></span>
+                  </Link>
+                  <p className="text-sm flex flex-col font-bold">
+                      <span>benifits : </span>
+                      - get extra 50 voxcoins <br/>
+                      - early access <br />
+                      - early insights <br />
+                      - more reach because of early creator-ship
+                  </p>
+              </div>}
             </div>
           </div>
         </main>
