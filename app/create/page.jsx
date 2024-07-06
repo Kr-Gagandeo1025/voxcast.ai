@@ -16,7 +16,9 @@ import Link from "next/link";
 
 const Create = () => {
   const voice_options = ['Alloy', 'Echo', 'Fable', 'Onyx', 'Nova', 'Shimmer'];
+  const categories_option = ["art","business","culture","education","gaming","health","history","hobbies","kids","lifestyle","music","news","religion","science","sports","tech","thriller","crime"]
   const [selectedVoice, setSelectedVoice] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [podcastTitle, setPodcastTitle] = useState("");
   const [podcastStory, setPodcastStory] = useState("");
   const [storyLoader, setStoryLoader] = useState(false);
@@ -26,6 +28,7 @@ const Create = () => {
   const [audioLoader, setAudioLoader] = useState(false);
   const [storyCharCount, setStoryCharCount] = useState(0);
   const [isCreator,setisCreator] = useState(false);
+  const [isPublishing,setIsPublishing] = useState(false);
   const maxStoryChar = 2000;
 
   const {user} = useUser();
@@ -46,6 +49,13 @@ const Create = () => {
     }
   };
 
+  const handleCategorySelect = (option) => {
+    if(option!==null){
+      setSelectedCategory(option.toLowerCase());
+      console.log(selectedCategory);
+    }
+  };
+
   const handleTitle = (e) => {
     e.preventDefault();
     setPodcastTitle(e.target.value);
@@ -61,7 +71,8 @@ const Create = () => {
 
   const handlePublish = async(e) => {
     e.preventDefault();
-    if(podcastTitle !== "" && podcastStory !== "" && audioUrl !== null && thumbnail !== null){
+    if(podcastTitle !== "" && podcastStory !== "" && audioUrl !== null && thumbnail !== null && selectedCategory !== null){
+      setIsPublishing(true);
       try{
         const response = await fetch('/api/upload-podcast',{
           method: "POST",
@@ -75,6 +86,7 @@ const Create = () => {
             podcast_story:podcastStory,
             podcast_audio:audioUrl,
             podcast_thumbnail:thumbnail,
+            podcast_category:selectedCategory
           }),
         });
         const result = await response.json();
@@ -85,6 +97,8 @@ const Create = () => {
         }
       }catch(error){
         console.log(error);
+      }finally{
+        setIsPublishing(false);
       }
     }else{
       toast.error("Fields missing...! Please complete the Process !");
@@ -213,25 +227,32 @@ const Create = () => {
                       </audio>}
                   </div>
                 </div>
-                <div className="mt-8">
-                  <span>get your masterpiece a thumbnail : </span>
-                  <div className="p-2 flex items-end">
-                    <div className="h-[200px] w-[200px] border rounded-xl flex justify-center items-center">
-                      {thumbnail ? <Image src={`data:image/jpeg;base64,${thumbnail}`} height={200} width={200} alt="podcast thumbnail" className="rounded-xl" /> : <span className="text-gray-400">no-img</span>}
+                <div className="mt-8 flex xl:flex-row flex-col">
+                  <div className="flex xl:w-1/2 flex-col">
+                    <span>get your masterpiece a thumbnail : </span>
+                    <div className="p-2 flex items-end">
+                      <div className="h-[200px] w-[200px] border rounded-xl flex justify-center items-center">
+                        {thumbnail ? <Image src={`data:image/jpeg;base64,${thumbnail}`} height={200} width={200} alt="podcast thumbnail" className="rounded-xl" /> : <span className="text-gray-400">no-img</span>}
+                      </div>
+                      <div className="flex flex-col gap-4 ml-4">
+                        <span className="text-sm mr-8 cursor-pointer flex gap-2 items-center justify-center"><MdUpload className="text-5xl" />pick your own art</span>
+                        {
+                          thumbnailLoader ? <CgSpinner className="animate-spin text-3xl" /> :
+                            <button className="xl:text-lg text-sm inline-block bg-gray-200 p-2 rounded-xl w-fit h-fit items-center" onClick={handleGenerateThumbnail}>generate thumbnail&nbsp; <RiAiGenerate className="inline-block"/></button>
+                        }
+                      </div>
                     </div>
-                    <div className="flex flex-col gap-4 ml-4">
-                      <span className="text-sm mr-8 cursor-pointer flex gap-2 items-center justify-center"><MdUpload className="text-5xl" />pick your own art</span>
-                      {
-                        thumbnailLoader ? <CgSpinner className="animate-spin text-3xl" /> :
-                          <button className="xl:text-lg text-sm inline-block bg-gray-200 p-2 rounded-xl w-fit h-fit items-center" onClick={handleGenerateThumbnail}>generate thumbnail&nbsp; <RiAiGenerate className="inline-block"/></button>
-                      }
-                    </div>
+                  </div>
+                  <div className="flex flex-col border-l-2 pl-2">
+                    <span>Select a Category : </span>
+                    <VoiceDropdown options={categories_option} onSelect={handleCategorySelect} />
                   </div>
                 </div>
                 {user &&
                   <div className="flex flex-wrap-reverse justify-end gap-4 pb-2">
                     <button className="flex items-center border rounded-xl px-4 py-2" onClick={handleDiscard}>Discard&nbsp;<MdDelete /></button>
-                    <button className="flex items-center border rounded-xl px-4 py-2" onClick={handlePublish}>Publish&nbsp;<FaGlobe /></button>
+                    {isPublishing?<CgSpinner className="animate-spin text-3xl"/>:
+                    <button className="flex items-center border rounded-xl px-4 py-2" onClick={handlePublish}>Publish&nbsp;<FaGlobe /></button>}
                   </div>
                 }
               </div>

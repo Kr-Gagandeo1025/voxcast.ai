@@ -4,10 +4,10 @@ import SidePanel from "@/components/SidePanel";
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { CgArrowTopRight, CgLink } from "react-icons/cg";
-import { MdElectricBolt, MdEmail, MdPhone } from "react-icons/md";
+import { CgArrowTopRight, CgCheck, CgLink } from "react-icons/cg";
+import { MdEmail} from "react-icons/md";
 
 const Page = () => {
     const {user} = useUser();
@@ -15,6 +15,25 @@ const Page = () => {
     const fullname = user?.fullName;
     const emailId = user?.emailAddresses[0].emailAddress;
     const [joinedWaitlist,setJoinedWaitlist] = useState(false);
+
+    
+
+    useEffect(()=>{
+        const getWaitlist = async() => {
+            const response = await fetch("/api/get-waitlist",{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json",
+                },
+                body:JSON.stringify({username}),
+            });
+            const result = await response.json();
+            if(result.success === true){
+                setJoinedWaitlist(true);
+            }
+        }
+        getWaitlist();
+    },[username]);
 
     const handleJoinWaitlist = async() => {
         const response = await fetch('/api/enter-waitlist',{
@@ -59,19 +78,7 @@ const Page = () => {
                     </div>
                     {joinedWaitlist? 
                     <div className="bg-white backdrop-blur-xl bg-opacity-50 backdrop-filter border border-black py-4 px-4 rounded-3xl h-fit w-fit flex justify-between items-center gap-4 flex-col" >
-                        <span className="font-bold text-xl">Podcast Data</span>
-                        <div className="flex items-center flex-col justify-between gap-4">
-                            <span>plays : 0</span>
-                            <span>likes : 0</span>
-                            <span className="flex items-center gap-2"><MdElectricBolt/> voxcoins : 0</span>
-                            <Link href="#" className="flex items-center gap-1 text-blue-500 underline" >get voxcoins<CgArrowTopRight/></Link>
-                            <div className="border-t-1 border-black">
-                                <span className="font-bold text-xl">manage podcasts</span>
-                                <div className="flex flex-col w-full justify-center items-center">
-                                    <span>no podcasts</span>
-                                </div>
-                            </div>
-                        </div>
+                        <span className="flex items-center">Already Entered Waitlist <CgCheck className="text-5xl"/></span>
                     </div> :
                     <div className="text-xl mt-20">
                         <span className="font-bold w-fit flex items-center justify-center gap-2 p-2 border border-black rounded-xl cursor-pointer" onClick={handleJoinWaitlist}>Join Creator Waitlist<CgLink/></span>

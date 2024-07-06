@@ -2,15 +2,15 @@ import Image from 'next/image';
 
 const CategoryCard = ({ title, image }) => {
   return (
-    <div className="flex items-center justify-start p-2 rounded-md bg-white backdrop-blur-xl border border-dashed border-black bg-opacity-30 text-black sm:p-4 lg:p-6 md:h-20 xl:p-4 xl:h-20">
+    <div className="flex cursor-pointer items-center justify-start p-2 rounded-md bg-white backdrop-blur-xl border border-dashed border-black bg-opacity-30 text-black sm:p-4 lg:p-6 md:h-20 xl:p-4 xl:h-20">
       <Image 
         src={image} 
         alt={title} 
         width={60} 
         height={60} 
-        className="rounded-md w-10 h-10 sm:w-10 sm:h-10 md:w-14 md:h-12 lg:w-16 lg:h-12 xl:w-14 xl:h-10" 
+        className="rounded-md h-14 object-cover" 
       />
-      <span className="ml-2 sm:ml-4 text-sm sm:text-base md:text-md lg:text-lg xl:text-xl">{title}</span>
+      <span className="ml-2 sm:ml-4 text-xs sm:text-base md:text-md lg:text-lg xl:text-xl text-wrap flex">{title}</span>
     </div>
   );
 };

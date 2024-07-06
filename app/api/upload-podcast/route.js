@@ -10,6 +10,7 @@ export async function POST(req){
         podcast_story,
         podcast_audio,
         podcast_thumbnail,
+        podcast_category
     } = await req.json();
 
     try{
@@ -22,6 +23,7 @@ export async function POST(req){
             podcast_story:podcast_story,
             podcast_audio:podcast_audio,
             podcast_thumbnail:podcast_thumbnail,
+            podcast_category:podcast_category,
         });
         await newPodcast.save();
         return NextResponse.json({message:'Podcast Upload success',id:newPodcast._id});

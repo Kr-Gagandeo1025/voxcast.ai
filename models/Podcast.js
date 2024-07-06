@@ -25,6 +25,10 @@ const PodcastSchema = new mongoose.Schema({
         type:String,
         required: false,
     },
+    podcast_category:{
+        type:String,
+        required: true,
+    },
     createdAt: {
         type:Date,
         default: Date.now,
