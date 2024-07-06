@@ -33,9 +33,3 @@ export async function POST(req){
         return NextResponse.json({error: "Error uploading podcast"});
     }
 }
-
-export const config = {
-    api:{
-        bodyParser:true,
-    },
-};

@@ -13,7 +13,6 @@
     "@clerk/nextjs": "^5.1.6",
     "@google/generative-ai": "^0.14.0",
     "@gsap/react": "^2.1.1",
-    "@langchain/openai": "^0.2.1",
     "@nextui-org/spinner": "^2.0.30",
     "@nextui-org/system": "^2.2.2",
     "@nextui-org/theme": "^2.2.6",

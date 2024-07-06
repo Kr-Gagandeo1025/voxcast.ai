@@ -25,9 +25,3 @@ export async function POST(req){
         return NextResponse.json({error: "Waitlist Joining Failed! Try Again !"});
     }
 }
-
-export const config = {
-    api:{
-        bodyParser:true,
-    },
-};
