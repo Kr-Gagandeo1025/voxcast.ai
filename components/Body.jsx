@@ -145,8 +145,12 @@ const Body = () => {
           <Link href="mailto:voxcastai@gmail.com" target="_blank">
               <button className="p-4 text-lg bg-black text-white rounded-full self-start lowercase">GET IN TOUCH</button>
             </Link>
-          <FaGithub/>
-          <FaInstagram/>
+            <Link href="https://github.com/Kr-Gagandeo1025" target="_blank">
+            <FaGithub/>
+            </Link>
+            <Link href="https://www.instagram.com/voxcast.ai?igsh=MWkyczU3OGRpeGZ6bA==" target="_blank">
+            <FaInstagram/>
+            </Link>
         </div>
       </div>
     </div>

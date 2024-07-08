@@ -6,7 +6,7 @@ export default function Home() {
   const { userId }  = auth();
 
   return (
-    <main className='h-screen xl:px-12 px-2 py-2 overflow-y-scroll no-scrollbar'>  
+    <main className='h-screen xl:px-12 px-2 py-2 overflow-y-scroll no-scrollbar scroll-smooth'>  
       <Nav isSigned={userId}/>
       <Body/>  
     </main>

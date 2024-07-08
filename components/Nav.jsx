@@ -9,10 +9,10 @@ const Nav = ({isSigned}) => {
       {/* Logo (left) */}
       <div className='flex items-baseline gap-4'>
         <span className='xl:text-4xl text-2xl font-bold'>voxcast.ai</span>
-        <span className='hidden xl:flex'>Home</span>
-        <span className='hidden xl:flex'>Categories</span>
-        <span className='hidden xl:flex'>Explore</span>
-        <span className='hidden xl:flex'>Pricing</span>
+        <Link href="#home" className='hidden xl:flex'><span>Home</span></Link>
+        <Link href="#categories" className='hidden xl:flex'><span>Categories</span></Link>
+        <Link href="#explore" className='hidden xl:flex'><span>Explore</span></Link>
+        <Link href="#pricing" className='hidden xl:flex'><span>Pricing</span></Link>
       </div>
 
       {/* Login/Sign Up (right) */}
