@@ -18,7 +18,7 @@ const PodcastSchema = new mongoose.Schema({
         required:true,
     },
     podcast_audio:{
-        type:Buffer,
+        type:String,
         required: true,
     },
     podcast_thumbnail:{

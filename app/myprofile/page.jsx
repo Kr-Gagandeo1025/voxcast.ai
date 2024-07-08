@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { CgArrowTopRight, CgCheck, CgLink } from "react-icons/cg";
+import { CgArrowTopRight, CgCheck, CgLink, CgSpinner } from "react-icons/cg";
 import { MdEmail} from "react-icons/md";
 
 const Page = () => {
@@ -14,7 +14,7 @@ const Page = () => {
     const username = user?.username;
     const fullname = user?.fullName;
     const emailId = user?.emailAddresses[0].emailAddress;
-    const [joinedWaitlist,setJoinedWaitlist] = useState(false);
+    const [joinedWaitlist,setJoinedWaitlist] = useState(null);
 
     
 
@@ -30,6 +30,8 @@ const Page = () => {
             const result = await response.json();
             if(result.success === true){
                 setJoinedWaitlist(true);
+            }else{
+                setJoinedWaitlist(false);
             }
         }
         getWaitlist();
@@ -76,7 +78,7 @@ const Page = () => {
                             <Link href='/user-profile' className="flex items-center gap-1 underline text-blue-400">manage profile<CgArrowTopRight/></Link>
                         </div>
                     </div>
-                    {joinedWaitlist? 
+                    {joinedWaitlist!==null && joinedWaitlist? 
                     <div className="bg-white backdrop-blur-xl bg-opacity-50 backdrop-filter border border-black py-4 px-4 rounded-3xl h-fit w-fit flex justify-between items-center gap-4 flex-col" >
                         <span className="flex items-center">Already Entered Waitlist <CgCheck className="text-5xl"/></span>
                     </div> :
@@ -98,7 +100,7 @@ const Page = () => {
     }else{
         return(
             <div className="flex items-center justify-center w-full h-full">
-                unable to get userdata
+                <CgSpinner className="animate-spin"/>loading user data....
             </div>
         )
     }
