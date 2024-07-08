@@ -53,7 +53,7 @@ const Body = () => {
           <span className="xl:text-9xl text-5xl font-bold text-wrap lowercase" id="title">For the Podcast you never made.</span>
           <span className="text-black text-3xl" id="title">the ai powered podcast</span>
           <span className="text-black text-2xl font-thin" id="title">explore, create, inspire</span>
-          <Link href="/home" className="text-black text-s font-normal mt-4 flex items-center gap-2 p-2 border border-black rounded-xl" id="title">start listening <FaArrowRight className="text-sm"/></Link>
+          <Link href="/home" className="text-black bg-white text-s font-normal mt-4 flex items-center gap-2 p-2 border border-black rounded-xl transition-all ease-in-out hover:bg-transparent" id="title">start listening <FaArrowRight className="text-sm"/></Link>
         </div>
         <div className="flex xl:w-1/2 w-full items-center justify-center">
           <Image src={'/svgs/sapiens1.svg'} height={100} width={100} alt="hero-img" className="h-[600px] w-auto" id="hero-img"/>
@@ -71,11 +71,11 @@ const Body = () => {
         <span className="w-full text-5xl mb-8 text-center font-bold">explore more</span>
         {/* New Card */}
         <div className="flex gap-4 overflow-x-scroll max-w-full no-scrollbar">
-          <div className="border border-black bg-transparent p-4 rounded-3xl h-[475px] min-w-[350px] flex items-center justify-center" id="card">
+          <div className="border border-black bg-white p-4 rounded-3xl h-[475px] min-w-[350px] flex items-center justify-center" id="card">
             <h2 className="text-3xl font-medium text-black">voxcast.ai</h2>
           </div>
           {/* Existing Cards */}
-          <div className="border border-black bg-transparent p-4 rounded-3xl h-[475px] w-[350px] flex flex-col justify-between" id="card">
+          <div className="border border-black bg-white p-4 rounded-3xl h-[475px] w-[350px] flex flex-col justify-between" id="card">
             <div>
               <h2 className="text-xl font-medium mb-2 lowercase ">ABOUT US</h2>
               <Image src="/voxcastailogo.png" alt="A Pack of Cigarettes" height={100} width={100} className="w-full h-full object-contain mb-2 rounded-lg" />
@@ -88,7 +88,7 @@ const Body = () => {
               </audio>
             </div>
           </div>
-          <div className="bg-transparent border border-black p-4 rounded-3xl h-[475px] w-[350px] flex flex-col justify-between" id="card">
+          <div className="bg-white border border-black p-4 rounded-3xl h-[475px] w-[350px] flex flex-col justify-between" id="card">
             <div className="flex flex-col h-full">
               <Image src="/images/tmibsthumbnail.jpeg" alt="mibs-thumbnail" width={200} height={200} className="w-full h-full object-cover mb-2 rounded-lg" />
               <h2 className="text-xl font-medium">the man in black suit</h2>
@@ -115,22 +115,22 @@ const Body = () => {
       <div className="flex flex-col justify-center items-center w-full mt-12" id="pricing">
         <span className="w-full text-5xl mb-8 text-center font-bold">our pricings</span>
         <div className="flex gap-4 overflow-x-scroll max-w-full no-scrollbar">
-          <div className="border border-black bg-transparent p-4 rounded-3xl h-[375px] min-w-[350px] flex flex-col items-start justify-start" id="card">
+          <div className="border border-black bg-white p-4 rounded-3xl h-[375px] min-w-[350px] flex flex-col items-start justify-start" id="card">
               <h2 className="text-3xl font-medium text-black flex items-center gap-2">Listener <CgHeadset/></h2>
               <span className="text-5xl font-bold border-black">FREE</span>
               <div className="flex flex-col gap-4 mt-20">
                 <span>☑ unlimited podcasts</span>
-                <span>☑ listen new podcasts</span>
+                <span>☑ listen to new podcasts</span>
                 <span>⤬ cannot upload podcasts</span>
                 <span>☑ lifetime-free</span>
               </div>
           </div>
-          <div className="border border-black bg-transparent p-4 rounded-3xl h-[375px] min-w-[350px] flex flex-col items-start justify-start" id="card">
+          <div className="border border-black bg-white p-4 rounded-3xl h-[375px] min-w-[350px] flex flex-col items-start justify-start" id="card">
               <h2 className="text-3xl font-medium text-black flex items-center gap-2">Creator <FaMicrophone/></h2>
               <span className="text-5xl font-bold border-black flex items-baseline gap-2">$2.5 <span className="text-sm">for 50 voxcoins</span></span>
               <div className="flex flex-col gap-4 mt-20">
                 <span>☑ unlimited podcasts</span>
-                <span>☑ listen new podcasts</span>
+                <span>☑ listen to new podcasts</span>
                 <span>☑ upload podcasts voxcoins based</span>
                 <span>☑ get early updates</span>
                 <span>☑ get paid* t&c </span>
