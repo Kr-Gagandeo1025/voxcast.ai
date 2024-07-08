@@ -1,17 +1,18 @@
 'use client'
 import React from 'react';
-import voxcastailogo from '@/public/voxcastailogo.png';
-import Image from 'next/image';
 import Link from 'next/link';
 import { FaArrowRight } from 'react-icons/fa';
 
 const Nav = ({isSigned}) => {
   return (
-    <div className='flex justify-between items-center flex-wrap backdrop-blur-xl bg-transparent backdrop-filter bg-opacity-30 bg-white w-full border-b border-black py-2 px-4'>
+    <div className='flex justify-between items-center bg-white'>
       {/* Logo (left) */}
-      <div className='flex items-center'>
-        {/* <Image src={voxcastailogo} height={50} width={50} className='h-11 mr-2' alt='voxcast.ai logo' /> */}
+      <div className='flex items-baseline gap-4'>
         <span className='xl:text-4xl text-2xl font-bold'>voxcast.ai</span>
+        <span className='hidden xl:flex'>Home</span>
+        <span className='hidden xl:flex'>Categories</span>
+        <span className='hidden xl:flex'>Explore</span>
+        <span className='hidden xl:flex'>Pricing</span>
       </div>
 
       {/* Login/Sign Up (right) */}
