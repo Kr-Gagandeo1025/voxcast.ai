@@ -28,7 +28,8 @@ const Page = () => {
                 body:JSON.stringify({username}),
             });
             const result = await response.json();
-            if(result.success === true){
+            console.log(result);
+            if(result.success === true && result.data !== null){
                 setJoinedWaitlist(true);
             }else{
                 setJoinedWaitlist(false);
