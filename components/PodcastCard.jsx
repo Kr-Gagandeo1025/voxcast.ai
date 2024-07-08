@@ -4,9 +4,9 @@ import demopodcst from "@/public/images/demopodcst.png"
 
 const PodcastCard = ({id,title,author,plays,thumbnail}) => {
   return (
-      <div className="bg-white backdrop-blur-xl bg-opacity-40 backdrop-filter border border-black py-4 px-4 rounded-3xl h-fit min-w-[227px] flex flex-col justify-between cursor-pointer" id="card" >
+      <div className="bg-white backdrop-blur-xl bg-opacity-40 backdrop-filter border border-black py-4 px-4 rounded-3xl h-fit w-[227px] flex flex-col justify-between cursor-pointer" id="card" >
             <div>
-                <Image src={`data:image/jpeg;base64,${thumbnail}`} alt="A Pack of Cigarettes" height={200} width={250} className="object-cover mb-2 rounded-lg border border-dashed border-black"/>
+                <Image src={`data:image/jpeg;base64,${thumbnail}`} alt="podcast img" height={200} width={250} className="object-cover mb-2 rounded-lg border border-dashed border-black"/>
                 <div className="flex flex-col">
                     <span className="text-xl font-medium font-body">{title}</span>
                     <div className="flex items-center justify-between text-lg font-medium font-body text-gray-400">
