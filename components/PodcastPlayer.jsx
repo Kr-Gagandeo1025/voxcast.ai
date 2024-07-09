@@ -12,8 +12,8 @@ const PodcastPlayer = ({playerData}) => {
                 <Image src={`data:image/jpeg;base64,${playerData.thumbnail}`} height={100} width={100} alt='pd-icon' className='rounded-lg border border-black border-dashed lg:h-24 h-12 w-auto'/>
                 <div className='flex flex-col justify-center items-start'>
                     <span className='text-xl font-bold'>{playerData.title}</span>
-                    <span className='text-sm text-gray-500'>@username</span>
-                    <span className='text-sm text-gray-500 flex items-center gap-2'><CgHeadset/>0</span>
+                    <span className='text-sm text-gray-500'>@{playerData.author}</span>
+                    <span className='text-sm text-gray-500 flex items-center gap-2'><CgHeadset/>{playerData.plays}</span>
                 </div>
             </div>
             {/* <div className='flex gap-4 mx-4'>

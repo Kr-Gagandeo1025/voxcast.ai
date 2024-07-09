@@ -39,7 +39,7 @@ const Home = () => {
         fetchPodcasts();
     }, []);
 
-    const setPlayer = async(id,title,thumbnail) => {
+    const setPlayer = async(id,title,thumbnail,username,plays) => {
         console.log(id);
         setIsTrackPlaying(true);
         setPlayingPodcastData(null);
@@ -60,6 +60,8 @@ const Home = () => {
               "title":title,
               "thumbnail":thumbnail,
               "audio":base64_audio,
+              "author":username,
+              "plays":plays
             })
           }else{
             toast.error('Audio Not Found...!');
@@ -111,7 +113,7 @@ const Home = () => {
                           <span className="xl:text-3xl text-2xl flex justify-between items-baseline font-bold">Trending <span className="xl:text-lg text-sm text-gray-400">show more</span></span>
                           <div className="my-2 flex overflow-x-scroll gap-4 no-scrollbar items-end">
                               {podcasts.map((pd, index) => (
-                                  <div key={index} onClick={() => setPlayer(pd._id,pd.podcast_title,pd.podcast_thumbnail)}>
+                                  <div key={index} onClick={() => setPlayer(pd._id,pd.podcast_title,pd.podcast_thumbnail,pd.username,pd.plays)}>
                                       <PodcastCard
                                           id={pd._id}
                                           title={pd.podcast_title}
@@ -127,7 +129,7 @@ const Home = () => {
                           <span className="xl:text-3xl text-2xl ml-2 flex justify-between items-baseline font-bold">New Release <span className="xl:text-lg text-sm text-gray-400">show more</span></span>
                           <div className="my-2 flex gap-4 overflow-x-scroll no-scrollbar items-end">
                               {podcasts.map((pd, index) => (
-                                  <div key={index} onClick={() => setPlayer(pd._id,pd.podcast_title,pd.podcast_thumbnail)}>
+                                  <div key={index} onClick={() => setPlayer(pd._id,pd.podcast_title,pd.podcast_thumbnail,pd.username)}>
                                       <PodcastCard
                                           id={pd._id}
                                           title={pd.podcast_title}
