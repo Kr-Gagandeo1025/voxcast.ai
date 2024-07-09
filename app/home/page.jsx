@@ -7,9 +7,7 @@ import Categories from "../constants/categories";
 import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { CgSpinner } from "react-icons/cg";
-import { FaSearch } from "react-icons/fa";import MyProfile from "@/components/MyProfile";
-import { MdMenu } from "react-icons/md";
-;
+import HomeTopBar from "@/components/HomeTopBar";
 
 const Home = () => {
     const [isTrackPlaying, setIsTrackPlaying] = useState(false);
@@ -17,6 +15,7 @@ const Home = () => {
     const [catnos, setCatNos] = useState(5);
     const [playingPodcastData, setPlayingPodcastData] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
+    const [sideBarState,setSideBarState] = useState("hidden");
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
@@ -81,30 +80,20 @@ const Home = () => {
         toast.error("Listen by Category coming soon...");
     }
 
+    const handleSideBarState = () => {
+        if(sideBarState==="hidden"){
+            setSideBarState("flex");
+        }else{
+            setSideBarState("hidden");
+        }
+    }
+
     return (
-        <main className="h-screen flex w-screen md:p-6 p-2">
+        <main className="h-screen flex max-w-screen md:p-4 p-1">
             <Toaster />
-            <SidePanel />
-                <div className="lg:pl-6 flex flex-col w-full">
-                    <div className="bg-white flex-1 w-full">
-                        <div className="lg:hidden flex w-full items-center justify-start gap-4 bg-lime-200 p-2 rounded-xl">
-                            <MdMenu className="text-3xl"/>
-                            <span className="text-3xl font-bold">voxcast.ai</span>
-                        </div>
-                        <div className="text-3xl flex items-center mt-2 mb-4">
-                            <div className="relative flex items-center w-full">
-                            <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-black pr-2" />
-                                <input
-                                    type="text"
-                                    placeholder="search..."
-                                    className="border bg-transparent bg-white bg-opacity-30 rounded-lg px-4 py-2 w-full text-lg outline-none pl-12"
-                                    value={searchTerm}
-                                    onChange={handleSearchChange}
-                                />
-                            </div>
-                        <MyProfile/>
-                    </div>
-                </div>
+            <SidePanel state={sideBarState}/>
+            <div className="flex flex-col w-full">
+                <HomeTopBar actionbtn={handleSideBarState} sidebarState={sideBarState}/>
                 <div className="flex flex-col overflow-y-scroll h-screen no-scrollbar w-full">
                     <div className="pt-4">
                         <span className="text-3xl border-b border-black ml-2 flex justify-between items-baseline">Categories <span className="text-lg text-gray-400 cursor-pointer" onClick={handlecatnos}>{catnos === 5 ? <span>show more</span> : <span>show less</span>}</span></span>
@@ -150,12 +139,12 @@ const Home = () => {
                               ))}
                           </div>
                       </div>
-                    </div>:<div className="flex items-center justify-center text-4xl">loading...<CgSpinner className="animate-spin"/></div>}
-                </div>
+                    </div>:<div className="flex h-full items-center justify-center text-xl">loading...<CgSpinner className="animate-spin"/></div>}
                 </div>
                 {isTrackPlaying &&
                         <PodcastPlayer playerData={playingPodcastData}/>
                 }
+            </div>
         </main>
     )
 }

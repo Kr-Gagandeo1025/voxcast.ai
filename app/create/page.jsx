@@ -29,6 +29,7 @@ const Create = () => {
   const [storyCharCount, setStoryCharCount] = useState(0);
   const [isCreator,setisCreator] = useState(false);
   const [isPublishing,setIsPublishing] = useState(false);
+  const [sideBarState,setSideBarState] = useState("hidden");
   const maxStoryChar = 2000;
 
   const {user} = useUser();
@@ -189,15 +190,22 @@ const Create = () => {
     setThumbnail(null);
     toast.success("Changes Discarded !");
   }
+  const handleSideBarState = () => {
+    if(sideBarState==="hidden"){
+        setSideBarState("flex");
+    }else{
+        setSideBarState("hidden");
+    }
+  }
 
   return (
-      <div>
+      <div className="h-screen md:p-4 p-1">
         <Toaster/>
-        <main className="h-screen flex w-screen bg-gradient-to-tl from-stone-100 via-transparent to-lime-200">
-          <SidePanel />
-          <div className="w-full xl:pl-[150px] lg:pl-[59px] pl-[62px]">
-            <HomeTopBar/>
-            <div className="px-4 ml-2 pt-16 flex flex-col overflow-y-scroll h-screen no-scrollbar">
+        <SidePanel  state={sideBarState}/>
+        <main className="h-full flex flex-col ">
+            <HomeTopBar actionbtn={handleSideBarState} sidebarState={sideBarState}/>
+          <div className="w-full h-full ">
+            <div className="px-4 ml-2 flex flex-col overflow-y-scroll h-screen no-scrollbar">
               <span>Hello, @{user?.username}</span>
               <span className='xl:text-3xl text-2xl inline-block'>give your imagined podcast wings with voxcast.ai <WiStars className="text-yellow-500 text-5xl inline-block" /></span>
               {isCreator?<div className="pt-8 xl:text-2xl text-xl flex flex-col gap-8">
