@@ -4,9 +4,9 @@ import { FaSignOutAlt } from 'react-icons/fa';
 const SingOutBtn = () => {
     const { signOut } = useClerk();
     return (
-        <button className='bg-lime-200 rounded-full py-4 px-4 flex items-center justify-center gap-2' onClick={() => signOut({ redirectUrl: '/' })}>
+        <button className='bg-white rounded-full w-full py-4 px-4 flex items-center justify-center gap-2 text-lg' onClick={() => signOut({ redirectUrl: '/' })}>
             <FaSignOutAlt/>
-            <span className='xl:flex hidden'>Sign Out</span>
+            <span className='flex'>log out</span>
         </button>
     )
 }

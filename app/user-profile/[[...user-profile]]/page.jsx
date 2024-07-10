@@ -6,14 +6,16 @@ import { CgArrowLeft } from "react-icons/cg";
 
 export default function UserProfilePage(){
     return(
-            <div className="bg-gradient-to-tl from-stone-100 via-transparent to-lime-200">
-                <HomeTopBar/>
-            <div className="w-screen h-screen flex flex-col">
-                <Link href="/myprofile" className="mt-24 flex items-center text-xl gap-1 underline"><CgArrowLeft/>go back</Link>
-                <div className="mt-24 mx-4 flex xl:flex-row flex-col justify-center items-center">
-                    <UserProfile path="/user-profile"/>
+            <div className="flex flex-col p-4">
+                <div className="w-full bg-lime-200 rounded-xl p-4">
+                    <span className="text-4xl font-bold">voxcast.ai</span>
                 </div>
-            </div>
+                <div className="w-full flex flex-col">
+                    <Link href="/home" className="flex items-center w-full justify-end text-xl gap-1 underline"><CgArrowLeft/>go back</Link>
+                    <div className="mt-24 mx-4 flex xl:flex-row flex-col justify-center items-center">
+                        <UserProfile path="/user-profile"/>
+                    </div>
+                </div>
             </div>
     )
 }

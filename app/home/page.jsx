@@ -2,18 +2,24 @@
 import PodcastCard from "@/components/PodcastCard";
 import CategoryCard from "@/components/CategoryCard";
 import SidePanel from "@/components/SidePanel";
-import HomeTopBar from "@/components/HomeTopBar";
 import PodcastPlayer from "@/components/PodcastPlayer";
 import Categories from "../constants/categories";
 import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { CgSpinner } from "react-icons/cg";
+import HomeTopBar from "@/components/HomeTopBar";
 
 const Home = () => {
     const [isTrackPlaying, setIsTrackPlaying] = useState(false);
     const [podcasts, setPodcasts] = useState([]);
     const [catnos, setCatNos] = useState(5);
     const [playingPodcastData, setPlayingPodcastData] = useState(null);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [sideBarState,setSideBarState] = useState("hidden");
+
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
 
     useEffect(() => {
         const fetchPodcasts = async () => {
@@ -33,7 +39,7 @@ const Home = () => {
         fetchPodcasts();
     }, []);
 
-    const setPlayer = async(id,title,thumbnail) => {
+    const setPlayer = async(id,title,thumbnail,username,plays) => {
         console.log(id);
         setIsTrackPlaying(true);
         setPlayingPodcastData(null);
@@ -54,6 +60,8 @@ const Home = () => {
               "title":title,
               "thumbnail":thumbnail,
               "audio":base64_audio,
+              "author":username,
+              "plays":plays
             })
           }else{
             toast.error('Audio Not Found...!');
@@ -74,21 +82,24 @@ const Home = () => {
         toast.error("Listen by Category coming soon...");
     }
 
+    const handleSideBarState = () => {
+        if(sideBarState==="hidden"){
+            setSideBarState("flex");
+        }else{
+            setSideBarState("hidden");
+        }
+    }
+
     return (
-        <main className="h-screen flex w-screen bg-gradient-to-tl from-stone-100 via-transparent to-lime-200">
-            <SidePanel />
-            <div className="w-full xl:pl-[150px] lg:pl-[59px] pl-[62px]">
-                <HomeTopBar />
-                <Toaster />
-                {/* {isTrackPlaying &&
-                    <div id="player" className="transition-all ease-in-out duration-500">
-                        <PodcastPlayer playerData={playingPodcastData}/>
-                    </div>
-                } */}
-                <div className="px-4 pt-16 flex flex-col overflow-y-scroll max-h-screen no-scrollbar pb-36">
-                    <div className="mt-4">
-                        <span className="text-3xl border-b border-black ml-2 flex w-full justify-between items-baseline">Categories <span className="text-lg text-gray-400 cursor-pointer" onClick={handlecatnos}>{catnos === 5 ? <span>show more</span> : <span>show less</span>}</span></span>
-                        <div className="my-2 mx-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-3 transition-all">
+        <main className="h-screen flex max-w-screen md:p-4 p-1">
+            <Toaster />
+            <SidePanel state={sideBarState}/>
+            <div className="flex flex-col w-full">
+                <HomeTopBar actionbtn={handleSideBarState} sidebarState={sideBarState}/>
+                <div className="flex flex-col overflow-y-scroll h-screen no-scrollbar w-full">
+                    <div className="pt-4">
+                        <span className="text-3xl border-b border-black ml-2 flex justify-between items-baseline">Categories <span className="text-lg text-gray-400 cursor-pointer" onClick={handlecatnos}>{catnos === 5 ? <span>show more</span> : <span>show less</span>}</span></span>
+                        <div className="my-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-3 transition-all">
                             {Categories.slice(0, catnos).map((category, index) => (
                                 <div key={index} onClick={handleCategoryClick}>
                                     <CategoryCard title={category.name} image={category.img} />
@@ -97,12 +108,12 @@ const Home = () => {
                         </div>
                     </div>
 
-                    {podcasts.length!==0?<div>
-                      <div className="mt-6">
-                          <span className="xl:text-3xl text-2xl ml-2 flex w-full justify-between items-baseline">Trending <span className="xl:text-lg text-sm text-gray-400">show more</span></span>
-                          <div className="my-2 flex overflow-x-scroll gap-4 no-scrollbar pl-2">
+                    {podcasts.length!==0?<div className="h-full">
+                      <div className="mt-6 p-4 bg-lime-100 rounded-2xl">
+                          <span className="xl:text-3xl text-2xl flex justify-between items-baseline font-bold">Trending <span className="xl:text-lg text-sm text-gray-400">show more</span></span>
+                          <div className="my-2 flex overflow-x-scroll gap-4 no-scrollbar items-end">
                               {podcasts.map((pd, index) => (
-                                  <div key={index} onClick={() => setPlayer(pd._id,pd.podcast_title,pd.podcast_thumbnail)}>
+                                  <div key={index} onClick={() => setPlayer(pd._id,pd.podcast_title,pd.podcast_thumbnail,pd.username,pd.plays)}>
                                       <PodcastCard
                                           id={pd._id}
                                           title={pd.podcast_title}
@@ -114,11 +125,11 @@ const Home = () => {
                               ))}
                           </div>
                       </div>
-                      <div className="mt-6">
-                          <span className="xl:text-3xl text-2xl ml-2 flex w-full justify-between items-baseline">New Release <span className="xl:text-lg text-sm text-gray-400">show more</span></span>
-                          <div className="my-2 flex gap-4 overflow-x-scroll no-scrollbar pl-2">
+                      <div className="mt-6 p-4 bg-lime-100 rounded-2xl">
+                          <span className="xl:text-3xl text-2xl ml-2 flex justify-between items-baseline font-bold">New Release <span className="xl:text-lg text-sm text-gray-400">show more</span></span>
+                          <div className="my-2 flex gap-4 overflow-x-scroll no-scrollbar items-end">
                               {podcasts.map((pd, index) => (
-                                  <div key={index} onClick={() => setPlayer(pd._id,pd.podcast_title,pd.podcast_thumbnail)}>
+                                  <div key={index} onClick={() => setPlayer(pd._id,pd.podcast_title,pd.podcast_thumbnail,pd.username)}>
                                       <PodcastCard
                                           id={pd._id}
                                           title={pd.podcast_title}
@@ -130,12 +141,12 @@ const Home = () => {
                               ))}
                           </div>
                       </div>
-                    </div>:<div className="flex items-center justify-center text-4xl">loading...<CgSpinner className="animate-spin"/></div>}
+                    </div>:<div className="flex h-full items-center justify-center text-xl">loading...<CgSpinner className="animate-spin"/></div>}
                 </div>
-            </div>
                 {isTrackPlaying &&
                         <PodcastPlayer playerData={playingPodcastData}/>
                 }
+            </div>
         </main>
     )
 }
