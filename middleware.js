@@ -7,7 +7,6 @@ import {
     '/home(.*)',
     '/create(.*)',
     '/search(.*)',
-    '/myprofile(.*)',
     '/user-profile(.*)',
   ]);
   
