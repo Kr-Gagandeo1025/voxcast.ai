@@ -5,12 +5,8 @@ import { MdClose, MdMenu } from 'react-icons/md'
 import MyProfile from './MyProfile'
 
 
-const HomeTopBar = ({actionbtn,sidebarState}) => {
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
+const HomeTopBar = ({actionbtn,sidebarState,searchTerm,handleSearchChange}) => {
+  
   return (
     <div className="bg-white flex-1 w-full">
         <div className=" flex w-full items-center justify-start gap-4 bg-lime-200 p-2 rounded-xl">

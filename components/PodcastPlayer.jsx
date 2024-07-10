@@ -7,7 +7,7 @@ import { MdPlayCircle, MdSkipNext, MdSkipPrevious } from 'react-icons/md'
 const PodcastPlayer = ({playerData}) => {
   return (
     <div className='w-full h-32 text-4xl p-0 flex justify-center items-center bg-white transition-all ease-in-out border border-black rounded-xl '>
-        {playerData!==null && <div className='flex lg:flex-row flex-col justify-between p-2 items-center w-full text-3xl gap-3'>
+        {playerData!==null && <div className='flex lg:flex-row flex-col justify-between p-2 h-full items-center w-full text-3xl gap-3'>
             <div className='flex gap-4'>
                 <Image src={`data:image/jpeg;base64,${playerData.thumbnail}`} height={100} width={100} alt='pd-icon' className='rounded-lg border border-black border-dashed lg:h-24 h-12 w-auto'/>
                 <div className='flex flex-col justify-center items-start'>

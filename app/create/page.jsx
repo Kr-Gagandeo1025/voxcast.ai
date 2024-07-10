@@ -3,7 +3,7 @@ import SidePanel from "@/components/SidePanel";
 import VoiceDropdown from "@/components/VoiceDropdown";
 import { getAIAudio, getStory, getThumbnail } from "@/app/utils/actions";
 import { useEffect, useState } from "react";
-import { FaGlobe } from "react-icons/fa";
+import { FaCheckCircle, FaGlobe } from "react-icons/fa";
 import { MdDelete, MdUpload } from "react-icons/md";
 import { RiAiGenerate } from "react-icons/ri";
 import { WiStars } from "react-icons/wi";
@@ -30,18 +30,65 @@ const Create = () => {
   const [isCreator,setisCreator] = useState(false);
   const [isPublishing,setIsPublishing] = useState(false);
   const [sideBarState,setSideBarState] = useState("hidden");
+  const [joinedWaitlist,setJoinedWaitlist] = useState(false);
+  const [isJoiningWaitlits,setIsJoiningWaitlist] = useState(false);
   const maxStoryChar = 2000;
 
   const {user} = useUser();
   const username = user?.username;
   const useremailId = user?.emailAddresses[0].emailAddress;
+  const fullname = user?.fullName;
+  const emailId = user?.emailAddresses[0].emailAddress;
+
 
 
   useEffect(()=>{
-    if(username==="gagandeo" || username==="prernaxa"){
+    if(username==="gaganeo" || username==="prernaxa"){
       setisCreator(true);
     }
   },[username]);
+
+  useEffect(()=>{
+    const getWaitlist = async() => {
+        const response = await fetch("/api/get-waitlist",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json",
+            },
+            body:JSON.stringify({username}),
+        });
+        const result = await response.json();
+        if(result.success === true){
+            setJoinedWaitlist(true);
+        }else{
+            setJoinedWaitlist(false);
+        }
+    }
+    getWaitlist();
+},[username]);
+
+const handleJoinWaitlist = async() => {
+    setIsJoiningWaitlist(true);
+    const response = await fetch('/api/enter-waitlist',{
+        method:"POST",
+        headers:{
+            'Content-Type':'application/json',
+        },
+        body: JSON.stringify({
+            fullname:fullname,
+            username:username,
+            emailId:emailId,
+        })
+    });
+    const result = await response.json();
+    if(response.ok){
+        toast.success(`${result.message} with id: ${result.id}`);
+        setJoinedWaitlist(true);
+    }else{
+        toast.error(`${result.error}`);
+    }
+    setIsJoiningWaitlist(false);
+}
 
   const handleVoiceSelect = (option) => {
     if(option!==null){
@@ -265,18 +312,22 @@ const Create = () => {
                 }
               </div>
               :
-              <div className="text-xl mt-20">
-                  <Link href="/myprofile">
-                    <span className="font-bold w-fit flex items-center justify-center gap-2 p-2 border border-black rounded-xl cursor-pointer">Enter Waitlist - Navigate to Profile<CgLink/></span>
-                  </Link>
-                  <p className="text-sm flex flex-col font-bold">
+              !joinedWaitlist?<div className="text-xl mt-20 items-start justify-center flex flex-col">
+                  <span className="bg-lime-200 font-bold w-fit flex items-center justify-center gap-2 py-2 px-12 border border-black rounded-xl cursor-pointer" onClick={handleJoinWaitlist}>
+                    {!isJoiningWaitlits?<span className="flex items-center gap-2">
+                      Enter Waitlist<CgLink/>
+                    </span>:<span className="flex items-center gap-2"><CgSpinner className="animate-spin"/>joining...</span>}
+                  </span>
+                  <p className="text-lg flex flex-col font-normal text-gray-600 px-4 py-2">
                       <span>benifits : </span>
                       - get extra 50 voxcoins <br/>
                       - early access <br />
                       - early insights <br />
                       - more reach because of early creator-ship
                   </p>
-              </div>}
+              </div>:<div className="flex mt-20 bg-lime-200 p-4 rounded-xl w-fit cursor-not-allowed">
+                      <span className="flex gap-2 items-center"><FaCheckCircle/> Already joined waitlist</span>
+                </div>}
             </div>
           </div>
         </main>

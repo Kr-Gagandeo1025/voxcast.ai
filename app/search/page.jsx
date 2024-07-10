@@ -38,8 +38,8 @@ const Search = () => {
     <Toaster />
       <SidePanel state={sideBarState} />
     <div className="h-full w-full">
-      <HomeTopBar actionbtn={handleSideBarState} sidebarState={sideBarState}/>
-      {suggestions&&
+      <HomeTopBar actionbtn={handleSideBarState} sidebarState={sideBarState} searchTerm={searchTerm} handleSearchChange={handleSearchChange}/>
+      {!suggestions&&searchTerm===""&&
       <div className="w-full mt-4 p-4 bg-lime-200 rounded-xl flex flex-col">
         <span className="text-2xl font-bold mb-2">top creators</span>
         <div className="max-w-full flex gap-4 overflow-x-scroll no-scrollbar">
@@ -48,7 +48,7 @@ const Search = () => {
           ))}
         </div>
       </div>}
-      {suggestions&&
+      {!suggestions&&searchTerm===""&&
       <div className="w-full mt-4 p-4 bg-lime-200 rounded-xl flex flex-col">
         <span className="text-2xl font-bold mb-2">trending podcasts</span>
         <div className="max-w-full flex gap-4 overflow-x-scroll no-scrollbar">
@@ -61,7 +61,7 @@ const Search = () => {
       <div className="w-full mt-4 p-4 bg-lime-200 rounded-xl flex flex-col items-center">
         <span className="text-xl font-bold">search results</span>
         <div className="max-w-full flex gap-4 overflow-x-scroll no-scrollbar">
-          searching...
+          coming soon, search is not available yet
         </div>
       </div>}
     </div>          
