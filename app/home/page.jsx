@@ -26,9 +26,7 @@ const Home = () => {
             try {
                 const response = await fetch('/api/get-podcast',{
                     method:"GET",
-                    headers:{
-                        'Cache-Control':'no-store, max-age=0',
-                    }
+                    cache: 'no-store',
                 });
                 if (!response.ok) {
                     throw new Error('Failed to fetch podcasts');
@@ -43,7 +41,7 @@ const Home = () => {
         };
 
         fetchPodcasts();
-    },[playingPodcastData]);
+    },[]);
 
     const setPlayer = async(id,title,thumbnail,username,plays) => {
         console.log(id);
