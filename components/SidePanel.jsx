@@ -1,4 +1,4 @@
-import { FaHome, FaSearch } from "react-icons/fa";
+import { FaHome, FaRupeeSign, FaSearch } from "react-icons/fa";
 import { MdOutlineLibraryMusic } from "react-icons/md";
 import { IoAddCircleSharp } from "react-icons/io5";
 import Link from "next/link";
@@ -27,6 +27,11 @@ const SidePanel = ({state}) => {
           <span className="p-2 h-16 flex justify-start items-center">
             <Link href="/create" className="flex items-center justify-center">
               <IoAddCircleSharp/>&nbsp;<span className="flex ">create</span>
+            </Link>
+          </span>
+          <span className="p-2 h-16 flex justify-start items-center">
+            <Link href="/buy-voxcoins" className="flex items-center justify-center">
+              <FaRupeeSign/>&nbsp;<span className="flex ">buy voxcoins</span>
             </Link>
           </span>
           <span className="p-2 h-16 flex justify-start items-center">

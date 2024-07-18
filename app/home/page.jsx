@@ -12,7 +12,7 @@ import HomeTopBar from "@/components/HomeTopBar";
 const Home = () => {
     const [isTrackPlaying, setIsTrackPlaying] = useState(false);
     const [podcasts, setPodcasts] = useState([]);
-    const [catnos, setCatNos] = useState(5);
+    const [catnos, setCatNos] = useState(8);
     const [playingPodcastData, setPlayingPodcastData] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [sideBarState,setSideBarState] = useState("hidden");
@@ -30,6 +30,7 @@ const Home = () => {
                 }
                 const data = await response.json();
                 setPodcasts(data.podcasts);
+                console.log(podcasts)
             } catch (error) {
                 console.error('Error fetching podcasts:', error);
         
@@ -70,11 +71,30 @@ const Home = () => {
           toast.error("Cannot get audio at the moment :(");
           console.log(e);
         }
+        try{
+            const response = await fetch("/api/play-count",{
+                method:"POST",
+                headers:{
+                    'Content-Type':'application/json',
+                },
+                body: JSON.stringify({
+                    id:id,
+                })
+            })
+            console.log(response);
+            if(response.status === 200){
+                console.log("success");
+            }else{
+                console.log("failed");
+            }
+        }catch(e){
+            console.log(e);
+        }
 
     }
 
     const handlecatnos = () => {
-        setCatNos(catnos === 5 ? 17 : 5);
+        setCatNos(catnos === 8 ? 17 : 8);
     }
 
     const handleCategoryClick = () => {
@@ -99,7 +119,7 @@ const Home = () => {
                 <div className="flex flex-col overflow-y-scroll h-screen no-scrollbar w-full">
                     <div className="pt-4">
                         <span className="text-3xl border-b border-black ml-2 flex justify-between items-baseline">Categories <span className="text-lg text-gray-400 cursor-pointer" onClick={handlecatnos}>{catnos === 5 ? <span>show more</span> : <span>show less</span>}</span></span>
-                        <div className="my-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-3 transition-all">
+                        <div className="my-2 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-8 gap-3 transition-all">
                             {Categories.slice(0, catnos).map((category, index) => (
                                 <div key={index} onClick={handleCategoryClick}>
                                     <CategoryCard title={category.name} image={category.img} />

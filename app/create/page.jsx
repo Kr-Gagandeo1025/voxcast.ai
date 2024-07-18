@@ -43,7 +43,7 @@ const Create = () => {
 
 
   useEffect(()=>{
-    if(username==="gagandeo" || username==="prernaxa"){
+    if(username==="gagandeo" || username==="prernaxa" || username==="voxcast"){
       setisCreator(true);
     }
   },[username]);
