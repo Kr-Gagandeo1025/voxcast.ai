@@ -25,7 +25,7 @@ const Home = () => {
     useEffect(() => {
         const fetchPodcasts = async () => {
             try {
-                const response = await fetch(`/api/get-podcast/${timestamp}`,{
+                const response = await fetch(`/api/get-podcast`,{
                     method:"GET",
                     cache: 'no-store',
                     next:{

@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import Podcast from  "@/models/Podcast"; 
 import dbConnect from "@/app/utils/mongoose";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req) {
     try {
       await dbConnect();
