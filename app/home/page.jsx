@@ -27,6 +27,9 @@ const Home = () => {
                 const response = await fetch('/api/get-podcast',{
                     method:"GET",
                     cache: 'no-store',
+                    next:{
+                        revalidate:0,
+                    }
                 });
                 if (!response.ok) {
                     throw new Error('Failed to fetch podcasts');
