@@ -24,7 +24,12 @@ const Home = () => {
     useEffect(() => {
         const fetchPodcasts = async () => {
             try {
-                const response = await fetch('/api/get-podcast');
+                const response = await fetch('/api/get-podcast',{
+                    method:"GET",
+                    headers:{
+                        'Cache-Control':'no-store, max-age=0',
+                    }
+                });
                 if (!response.ok) {
                     throw new Error('Failed to fetch podcasts');
                 }
@@ -48,7 +53,6 @@ const Home = () => {
           const response = await fetch('/api/get-podcast-audio',{
             method:"POST",
             headers:{
-                'Cache-Control':'no-store, max-age=0',
               'Content-Type':'application/json',
             },
             body: JSON.stringify({
