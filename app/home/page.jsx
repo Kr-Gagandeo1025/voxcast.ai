@@ -11,7 +11,7 @@ import HomeTopBar from "@/components/HomeTopBar";
 
 const Home = () => {
     const [isTrackPlaying, setIsTrackPlaying] = useState(false);
-    const [podcasts, setPodcasts] = useState([]);
+    const [podcasts, setPodcasts] = useState(null);
     const [catnos, setCatNos] = useState(8);
     const [playingPodcastData, setPlayingPodcastData] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
@@ -38,7 +38,7 @@ const Home = () => {
         };
 
         fetchPodcasts();
-    }, []);
+    },[playingPodcastData]);
 
     const setPlayer = async(id,title,thumbnail,username,plays) => {
         console.log(id);
@@ -128,11 +128,11 @@ const Home = () => {
                         </div>
                     </div>
 
-                    {podcasts.length!==0?<div className="h-full">
+                    {podcasts?<div className="h-full">
                       <div className="mt-6 p-4 bg-lime-100 rounded-2xl">
                           <span className="xl:text-3xl text-2xl flex justify-between items-baseline font-bold">Trending <span className="xl:text-lg text-sm text-gray-400">show more</span></span>
                           <div className="my-2 flex overflow-x-scroll gap-4 no-scrollbar items-end">
-                              {podcasts.map((pd, index) => (
+                              {podcasts?.map((pd, index) => (
                                   <div key={index} onClick={() => setPlayer(pd._id,pd.podcast_title,pd.podcast_thumbnail,pd.username,pd.plays)}>
                                       <PodcastCard
                                           id={pd._id}
@@ -148,7 +148,7 @@ const Home = () => {
                       <div className="mt-6 p-4 bg-lime-100 rounded-2xl">
                           <span className="xl:text-3xl text-2xl ml-2 flex justify-between items-baseline font-bold">New Release <span className="xl:text-lg text-sm text-gray-400">show more</span></span>
                           <div className="my-2 flex gap-4 overflow-x-scroll no-scrollbar items-end">
-                              {podcasts.map((pd, index) => (
+                              {podcasts?.map((pd, index) => (
                                   <div key={index} onClick={() => setPlayer(pd._id,pd.podcast_title,pd.podcast_thumbnail,pd.username)}>
                                       <PodcastCard
                                           id={pd._id}
