@@ -48,6 +48,7 @@ const Home = () => {
           const response = await fetch('/api/get-podcast-audio',{
             method:"POST",
             headers:{
+                'Cache-Control':'no-store, max-age=0',
               'Content-Type':'application/json',
             },
             body: JSON.stringify({
