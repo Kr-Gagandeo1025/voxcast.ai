@@ -10,6 +10,7 @@ import { CgSpinner } from "react-icons/cg";
 import HomeTopBar from "@/components/HomeTopBar";
 
 const Home = () => {
+    const timestamp = Date.parse(new Date().toString());
     const [isTrackPlaying, setIsTrackPlaying] = useState(false);
     const [podcasts, setPodcasts] = useState(null);
     const [catnos, setCatNos] = useState(8);
@@ -24,7 +25,7 @@ const Home = () => {
     useEffect(() => {
         const fetchPodcasts = async () => {
             try {
-                const response = await fetch('/api/get-podcast',{
+                const response = await fetch(`/api/get-podcast/${timestamp}`,{
                     method:"GET",
                     cache: 'no-store',
                     next:{
