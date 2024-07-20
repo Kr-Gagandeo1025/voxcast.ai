@@ -1,12 +1,38 @@
-'use client'
+"use client"
 import HomeTopBar from "@/components/HomeTopBar"
+import ManagePodcast from "@/components/ManagePodcast";
 import SidePanel from "@/components/SidePanel"
-import Image from "next/image";
-import { useState } from "react";
+import { useUser } from "@clerk/nextjs";
+import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { CgSpinner } from "react-icons/cg";
 import { IoBookmark } from "react-icons/io5";
-import { MdDelete } from "react-icons/md";
+
 
 const Page = () => {
+  const [user_podcasts,set_user_podcasts] = useState(null);
+  const {user} = useUser();
+  const username = user?.username;
+  const getuploadedPodcasts = async () => {
+    try{
+      set_user_podcasts(null);
+      const response = await fetch("/api/get-users-podcasts",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json",
+        },
+        body:JSON.stringify({username}),
+      })
+      const result = await response.json();
+      const res = result.podcasts_data;
+      set_user_podcasts(res);
+    }catch(e){
+      console.log("not data got");
+    }
+  }
+  useEffect(()=>{
+    getuploadedPodcasts();
+  },[username]);
   const [sideBarState,setSideBarState] = useState("hidden");
   const handleSideBarState = () => {
     if(sideBarState==="hidden"){
@@ -15,9 +41,26 @@ const Page = () => {
         setSideBarState("hidden");
     }
   }
+  const handlePodcastDelete = async (id) => {
+    const response = await fetch("/api/delete-podcast",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+      },
+      body:JSON.stringify({id}),
+    })
+    const result = await response.json();
+    if(result.res === true && result.del_resp.acknowledged === true){
+      toast.success("Deleted Successfully");
+      getuploadedPodcasts();
+    }else{
+      toast.error("Cannot Delete !! Try Later");
+    }
+  }
   return (
     <main className="h-screen w-screen flex md:p-4 p-1">
-        <SidePanel state={sideBarState}/>
+      <Toaster/>
+        <SidePanel state={sideBarState} page={"library"}/>
         <div className="w-full flex flex-col">
            <HomeTopBar actionbtn={handleSideBarState} sidebarState={sideBarState}/>
            <div className="flex flex-col overflow-y-scroll h-screen no-scrollbar w-full">
@@ -34,13 +77,12 @@ const Page = () => {
             </div>
             <div className="flex flex-col w-full mt-12">
               <span className="text-3xl border-b border-black flex justify-between items-baseline">Your Podcasts</span>
-              <div className="p-4">
-                <div className="flex p-2 items-center justify-between w-fit border border-dashed border-black rounded-lg gap-5">
-                  <Image src={""} alt="img" className="border border-black rounded-xl" height={60} width={60}/>
-                  <span className="text-xl">Little Kitty Big City</span>
-                  <MdDelete className="text-red-800 text-3xl"/>
-                </div>
+              <div className="p-4 gap-2 flex-wrap flex">
+                {user_podcasts?.length !==0 && user_podcasts?.map((pd)=>(
+                  <ManagePodcast key={pd._id} data={pd} delFunc={()=>{handlePodcastDelete(pd._id)}}/>
+                ))}
               </div>
+              {user_podcasts===null && <div className="flex gap-2 items-center text-xl"><CgSpinner className="animate-spin"/>loading</div>}
             </div>
            </div>
         </div>

@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import React, { useEffect, useRef, useState } from 'react'
-import { CgHeadset, CgSpinner } from 'react-icons/cg'
-import { IoOptions } from 'react-icons/io5'
-import { MdPauseCircle, MdPlayCircle, MdSkipNext, MdSkipPrevious, MdVolumeUp } from 'react-icons/md'
+import { CgBookmark, CgHeadset, CgSpinner } from 'react-icons/cg'
+import { TbRewindBackward10, TbRewindForward10 } from "react-icons/tb";
+import { MdPauseCircle, MdPlayCircle, MdVolumeUp } from 'react-icons/md'
 
 const PodcastPlayer = ({playerData}) => {
 
@@ -39,6 +39,17 @@ const PodcastPlayer = ({playerData}) => {
         audio.volume = newVolume;
         setVolume(newVolume);
     };
+    const skipForward = () => {
+        const audio = audioRef.current;
+        audio.currentTime = Math.min(audio.currentTime + 10, audio.duration);
+        setProgress(progress+10);
+    };
+
+    const skipBackward = () => {
+        const audio = audioRef.current;
+        audio.currentTime = Math.max(audio.currentTime - 10, 0);
+        setProgress(progress-10);
+    };
 
     useEffect(()=>{
         const audio = audioRef.current;
@@ -57,18 +68,23 @@ const PodcastPlayer = ({playerData}) => {
                 <Image src={`data:image/jpeg;base64,${playerData.thumbnail}`} height={100} width={100} alt='pd-icon' className='rounded-lg border border-black border-dashed lg:h-24 h-12 w-auto'/>
                 <div className='flex flex-col justify-center items-start'>
                     <span className='lg:text-xl text-sm font-bold'>{playerData.title}</span>
-                    <span className='lg:text-sm text-xs text-gray-500'>@{playerData.author}</span>
-                    <span className='lg:text-sm text-xs text-gray-500 flex items-center gap-2'><CgHeadset/>{playerData.plays}</span>
+                    <div className='flex items-end gap-4'>
+                        <div>
+                            <span className='lg:text-sm text-xs text-gray-500'>@{playerData.author}</span>
+                            <span className='lg:text-sm text-xs text-gray-500 flex items-center gap-2'><CgHeadset/>{playerData.plays}</span>
+                        </div>
+                        <button><CgBookmark className='text-3xl'/></button>
+                    </div>
                 </div>
             </div>
             { playerData.audio &&
             <div className='flex w-2/3 items-center justify-center'>
                 <audio ref={audioRef} src={`data:audio/mpeg;base64,${playerData.audio}`} />
                 <div className='flex flex-col w-full lg:text-5xl text-2xl items-center'>
-                    <div className='flex gap-6 mb-3'>
-                        <MdSkipPrevious className='cursor-pointer'/>
+                    <div className='flex gap-6 mb-3 text-gray-600'>
+                        <TbRewindBackward10 className='cursor-pointer' onClick={skipBackward}/>
                         {isPlaying?<MdPauseCircle onClick={togglePlayPause} className='cursor-pointer'/>:<MdPlayCircle onClick={togglePlayPause} className='cursor-pointer'/>}
-                        <MdSkipNext/>
+                        <TbRewindForward10 className='cursor-pointer' onClick={skipForward}/>
                     </div>
                     <input type='range' value={progress} onChange={handleSeek} className='w-full bg-lime-200 cursor-pointer'/>
                 </div>

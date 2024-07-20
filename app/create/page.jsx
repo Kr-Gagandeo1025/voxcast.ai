@@ -43,7 +43,7 @@ const Create = () => {
 
 
   useEffect(()=>{
-    if(username==="gagandeo" || username==="prernaxa" || username==="voxcast"){
+    if(username==="gagandeo" || username==="prernax" || username==="voxcast"){
       setisCreator(true);
     }
   },[username]);
@@ -122,7 +122,7 @@ const handleJoinWaitlist = async() => {
 
   const handlePublish = async(e) => {
     e.preventDefault();
-    if(podcastTitle !== "" && podcastStory !== "" && audioUrl !== null && thumbnail !== null && selectedCategory !== null){
+    if(podcastTitle !== "" && podcastStory !== "" && audioUrl !== null && selectedCategory !== null){
       setIsPublishing(true);
       try{
         const response = await fetch('/api/upload-podcast',{
@@ -143,6 +143,7 @@ const handleJoinWaitlist = async() => {
         const result = await response.json();
         if(response.ok){
           toast.success(`Podcast Upload Success ! with ID: ${result.id} for @${username}`);
+          handleDiscard();
         }else{
           toast.error("unable to upload...");
         }
@@ -251,7 +252,7 @@ const handleJoinWaitlist = async() => {
   return (
       <div className="h-screen md:p-4 p-1">
         <Toaster/>
-        <SidePanel  state={sideBarState}/>
+        <SidePanel  state={sideBarState} page={"create"}/>
         <main className="h-full flex flex-col ">
             <HomeTopBar actionbtn={handleSideBarState} sidebarState={sideBarState}/>
           <div className="w-full h-full ">

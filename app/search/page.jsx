@@ -36,7 +36,7 @@ const Search = () => {
   return (
   <main className="h-screen flex md:p-4 p-1">
     <Toaster />
-      <SidePanel state={sideBarState} />
+      <SidePanel state={sideBarState} page={"explore"}/>
     <div className="h-full w-full">
       <HomeTopBar actionbtn={handleSideBarState} sidebarState={sideBarState} searchTerm={searchTerm} handleSearchChange={handleSearchChange}/>
       {!suggestions&&searchTerm===""&&
