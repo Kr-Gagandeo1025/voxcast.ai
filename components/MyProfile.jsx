@@ -25,7 +25,7 @@ const MyProfile = () => {
       }
     }
   return (
-    <div className="min-w-[250px] flex flex-col items-center justify-center gap-4 bg-lime-200 rounded-xl p-2 ml-2">
+    <div className="min-w-[220px] flex flex-col items-center justify-center gap-4 bg-white rounded-xl py-1">
       <div className="flex items-center gap-2">
         <FaBell className="text-xl"/>
         <span className="text-lg">@{username}</span>

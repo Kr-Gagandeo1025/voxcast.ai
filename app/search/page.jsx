@@ -1,17 +1,17 @@
 'use client'
 import SidePanel from "@/components/SidePanel";
-import { FaSearch } from "react-icons/fa";
 import PodcastCard from "@/components/PodcastCard";
 import { useState } from "react";
 import HomeTopBar from "@/components/HomeTopBar";
-import { MdMenu } from "react-icons/md";
-import { CgSpinner } from "react-icons/cg";
-import { Toaster } from "react-hot-toast";
-import MyProfile from "@/components/MyProfile";
+import toast, { Toaster } from "react-hot-toast";
+import CategoryCard from "@/components/CategoryCard";
+import Categories from "../constants/categories";
+import SearchBar from "@/components/SearchBar";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sideBarState,setSideBarState] = useState("hidden");
+  const [catnos, setCatNos] = useState(8);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -31,14 +31,33 @@ const Search = () => {
     }else{
         setSideBarState("hidden");
     }
-}
+  }
+  const handlecatnos = () => {
+    setCatNos(catnos === 8 ? 17 : 8);
+  }
+
+  const handleCategoryClick = () => {
+    console.log("hi")
+    toast.error("Listen by Category coming soon...");
+  }
 
   return (
   <main className="h-screen flex md:p-4 p-1">
     <Toaster />
       <SidePanel state={sideBarState} page={"explore"}/>
     <div className="h-full w-full">
-      <HomeTopBar actionbtn={handleSideBarState} sidebarState={sideBarState} searchTerm={searchTerm} handleSearchChange={handleSearchChange}/>
+      <HomeTopBar actionbtn={handleSideBarState} sidebarState={sideBarState}/>
+      <SearchBar searchTerm={searchTerm} handleSearchChange={handleSearchChange}/>
+      <div className="pt-4">
+          <span className="text-3xl border-b border-black ml-2 flex justify-between items-baseline">Categories <span className="text-lg text-gray-400 cursor-pointer" onClick={handlecatnos}>{catnos === 8 ? <span>show more</span> : <span>show less</span>}</span></span>
+          <div className="my-2 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-8 gap-3 transition-all">
+              {Categories.slice(0, catnos).map((category, index) => (
+                  <div key={index} onClick={handleCategoryClick}>
+                      <CategoryCard title={category.name} image={category.img} />
+                  </div>
+              ))}
+          </div>
+      </div>
       {!suggestions&&searchTerm===""&&
       <div className="w-full mt-4 p-4 bg-lime-200 rounded-xl flex flex-col">
         <span className="text-2xl font-bold mb-2">top creators</span>
