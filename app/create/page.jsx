@@ -30,7 +30,7 @@ const Create = () => {
   const [isCreator,setisCreator] = useState(false);
   const [isPublishing,setIsPublishing] = useState(false);
   const [sideBarState,setSideBarState] = useState("hidden");
-  const [joinedWaitlist,setJoinedWaitlist] = useState(false);
+  const [joinedWaitlist,setJoinedWaitlist] = useState(null);
   const [isJoiningWaitlits,setIsJoiningWaitlist] = useState(false);
   const maxStoryChar = 2000;
 
@@ -43,13 +43,14 @@ const Create = () => {
 
 
   useEffect(()=>{
-    if(username==="gaganeo" || username==="prernaxa"){
+    if(username==="gagandeo" || username==="prernax" || username==="voxcast"){
       setisCreator(true);
     }
   },[username]);
 
   useEffect(()=>{
     const getWaitlist = async() => {
+      if(username!==null){
         const response = await fetch("/api/get-waitlist",{
             method:"POST",
             headers:{
@@ -58,11 +59,13 @@ const Create = () => {
             body:JSON.stringify({username}),
         });
         const result = await response.json();
-        if(result.success === true){
+        console.log(result);
+        if(result.success === true && result.data !== null){
             setJoinedWaitlist(true);
         }else{
             setJoinedWaitlist(false);
         }
+      }
     }
     getWaitlist();
 },[username]);
@@ -119,7 +122,7 @@ const handleJoinWaitlist = async() => {
 
   const handlePublish = async(e) => {
     e.preventDefault();
-    if(podcastTitle !== "" && podcastStory !== "" && audioUrl !== null && thumbnail !== null && selectedCategory !== null){
+    if(podcastTitle !== "" && podcastStory !== "" && audioUrl !== null && selectedCategory !== null){
       setIsPublishing(true);
       try{
         const response = await fetch('/api/upload-podcast',{
@@ -140,6 +143,7 @@ const handleJoinWaitlist = async() => {
         const result = await response.json();
         if(response.ok){
           toast.success(`Podcast Upload Success ! with ID: ${result.id} for @${username}`);
+          handleDiscard();
         }else{
           toast.error("unable to upload...");
         }
@@ -248,7 +252,7 @@ const handleJoinWaitlist = async() => {
   return (
       <div className="h-screen md:p-4 p-1">
         <Toaster/>
-        <SidePanel  state={sideBarState}/>
+        <SidePanel  state={sideBarState} page={"create"}/>
         <main className="h-full flex flex-col ">
             <HomeTopBar actionbtn={handleSideBarState} sidebarState={sideBarState}/>
           <div className="w-full h-full ">
@@ -312,7 +316,7 @@ const handleJoinWaitlist = async() => {
                 }
               </div>
               :
-              !joinedWaitlist?<div className="text-xl mt-20 items-start justify-center flex flex-col">
+              joinedWaitlist !== null ? !joinedWaitlist?<div className="text-xl mt-20 items-start justify-center flex flex-col">
                   <span className="bg-lime-200 font-bold w-fit flex items-center justify-center gap-2 py-2 px-12 border border-black rounded-xl cursor-pointer" onClick={handleJoinWaitlist}>
                     {!isJoiningWaitlits?<span className="flex items-center gap-2">
                       Enter Waitlist<CgLink/>
@@ -327,7 +331,7 @@ const handleJoinWaitlist = async() => {
                   </p>
               </div>:<div className="flex mt-20 bg-lime-200 p-4 rounded-xl w-fit cursor-not-allowed">
                       <span className="flex gap-2 items-center"><FaCheckCircle/> Already joined waitlist</span>
-                </div>}
+                </div>:<div className="flex items-center mt-20 gap-2"><CgSpinner className="animate-spin"/>loading...</div>}
             </div>
           </div>
         </main>
