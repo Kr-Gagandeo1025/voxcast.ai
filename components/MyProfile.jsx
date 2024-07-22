@@ -4,8 +4,9 @@ import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { MdElectricBolt } from "react-icons/md";
 import { IoPeopleCircle } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useData } from "@/providers/DataContext";
 
 const MyProfile = () => {
     const {user} = useUser();
@@ -13,7 +14,8 @@ const MyProfile = () => {
     const fullname = user?.fullName;
     const emailId = user?.emailAddresses[0].emailAddress;
     const [showProfile,setShowProfile] = useState("hidden");
-    const [chevPos,setChevPos] = useState("rotate-0")
+    const [chevPos,setChevPos] = useState("rotate-0");
+    const {voxcoins} = useData();
 
     const handleProfileDisplay = () =>{
       if(showProfile === "hidden"){
@@ -35,7 +37,7 @@ const MyProfile = () => {
       <div className={`flex-col ${showProfile} transition-all ease-in-out`}>
         <span className="text-sm">{fullname}</span>
         <span className="text-sm">{emailId}</span>
-        <span className="flex items-center gap-2 text-lg"><MdElectricBolt/> 0</span>
+        <span className="flex items-center gap-2 text-lg"><MdElectricBolt/>{voxcoins}</span>
         <span className="flex items-center gap-2 text-lg"><IoPeopleCircle/> 0</span>
         <Link href="/user-profile" className="text-blue-500 underline text-sm">manage profile↗</Link>
       </div>

@@ -1,7 +1,9 @@
 "use client"
 import HomeTopBar from "@/components/HomeTopBar"
 import ManagePodcast from "@/components/ManagePodcast";
+import PodcastPlayer from "@/components/PodcastPlayer";
 import SidePanel from "@/components/SidePanel"
+import { useAudioPlayer } from "@/providers/AudioPlayerContext";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -10,6 +12,7 @@ import { IoBookmark } from "react-icons/io5";
 
 
 const Page = () => {
+  const {isTrackPlaying} = useAudioPlayer();
   const [user_podcasts,set_user_podcasts] = useState(null);
   const {user} = useUser();
   const username = user?.username;
@@ -85,6 +88,9 @@ const Page = () => {
               {user_podcasts===null && <div className="flex gap-2 items-center text-xl"><CgSpinner className="animate-spin"/>loading</div>}
             </div>
            </div>
+           {isTrackPlaying &&
+              <PodcastPlayer/>
+            }
         </div>
     </main>
   )

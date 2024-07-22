@@ -10,9 +10,8 @@ const ContinuePlaying = () => {
             <span className="font-bold text-lg">demo podcast</span>
             <span className='text-sm'>@username</span>
             <span className='text-sm'>10/06/2002</span>
-            <input type='range' value={30} className='w-full bg-lime-200 cursor-pointer mt-2'/>
         </div>
-        <MdPlayCircle className="text-4xl ml-4 self-end"/>
+        <MdPlayCircle className="text-5xl ml-4 self-end"/>
     </div>
   )
 }

@@ -7,8 +7,11 @@ import toast, { Toaster } from "react-hot-toast";
 import CategoryCard from "@/components/CategoryCard";
 import Categories from "../constants/categories";
 import SearchBar from "@/components/SearchBar";
+import PodcastPlayer from "@/components/PodcastPlayer";
+import { useAudioPlayer } from "@/providers/AudioPlayerContext";
 
 const Search = () => {
+  const {isTrackPlaying} = useAudioPlayer();
   const [searchTerm, setSearchTerm] = useState("");
   const [sideBarState,setSideBarState] = useState("hidden");
   const [catnos, setCatNos] = useState(8);
@@ -45,9 +48,10 @@ const Search = () => {
   <main className="h-screen flex md:p-4 p-1">
     <Toaster />
       <SidePanel state={sideBarState} page={"explore"}/>
-    <div className="h-full w-full">
+    <div className="w-full flex flex-col">
       <HomeTopBar actionbtn={handleSideBarState} sidebarState={sideBarState}/>
       <SearchBar searchTerm={searchTerm} handleSearchChange={handleSearchChange}/>
+      <div className="flex flex-col overflow-y-scroll h-screen no-scrollbar w-full">
       <div className="pt-4">
           <span className="text-3xl border-b border-black ml-2 flex justify-between items-baseline">Categories <span className="text-lg text-gray-400 cursor-pointer" onClick={handlecatnos}>{catnos === 8 ? <span>show more</span> : <span>show less</span>}</span></span>
           <div className="my-2 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-8 gap-3 transition-all">
@@ -83,6 +87,10 @@ const Search = () => {
           coming soon, search is not available yet
         </div>
       </div>}
+      </div>
+      {isTrackPlaying &&
+          <PodcastPlayer/>
+        }
     </div>          
   </main>
   );

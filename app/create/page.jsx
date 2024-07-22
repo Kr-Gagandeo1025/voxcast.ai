@@ -40,14 +40,6 @@ const Create = () => {
   const fullname = user?.fullName;
   const emailId = user?.emailAddresses[0].emailAddress;
 
-
-
-  useEffect(()=>{
-    if(username==="gagandeo" || username==="prernax" || username==="voxcast"){
-      setisCreator(true);
-    }
-  },[username]);
-
   useEffect(()=>{
     const getWaitlist = async() => {
       if(username!==null){
@@ -62,8 +54,12 @@ const Create = () => {
         console.log(result);
         if(result.success === true && result.data !== null){
             setJoinedWaitlist(true);
+            setisCreator(true);
+            setTimeout(()=>{
+            },[100])
         }else{
             setJoinedWaitlist(false);
+            setisCreator(false);
         }
       }
     }
@@ -87,6 +83,9 @@ const handleJoinWaitlist = async() => {
     if(response.ok){
         toast.success(`${result.message} with id: ${result.id}`);
         setJoinedWaitlist(true);
+        setTimeout(()=>{
+          setisCreator(true);
+        },[100])
     }else{
         toast.error(`${result.error}`);
     }
@@ -267,7 +266,7 @@ const handleJoinWaitlist = async() => {
                 <label htmlFor="podcast-story" className="flex flex-col">
                   <span className="flex justify-between xl:items-center xl:flex-row flex-col items-start">
                     <span>give your podcast a story : <span className="text-sm text-gray-400">{storyCharCount}/{maxStoryChar} chars</span></span> 
-                    {storyLoader ? <CgSpinner className="animate-spin text-3xl" /> : <button className="flex items-center xl:text-lg text-sm bg-gray-200 p-2 rounded-xl" onClick={handleGenerateStory}>generate story &nbsp; <RiAiGenerate /> </button>}</span>
+                    {storyLoader ? <CgSpinner className="animate-spin text-3xl" /> : <button className="flex items-center xl:text-lg text-sm bg-gray-200 p-2 rounded-xl" onClick={handleGenerateStory}>generate story &nbsp; <RiAiGenerate /> &nbsp; <span className="text-sm">5vx</span> </button>}</span>
                   <textarea id="podcast-title" className="border-b border-black bg-transparent outline-none mt-4 text-lg" rows={10} value={podcastStory} onChange={handleStory} />
                 </label>
                 <div className="flex w-full flex-col lg:flex-row gap-4">
@@ -278,7 +277,7 @@ const handleJoinWaitlist = async() => {
                   <div className="flex flex-col gap-4 w-full lg:w-1/2 border-t-2 lg:border-t-0 lg:border-l-2 lg:pl-2 pt-4 lg:pt-0">
                     <span>your generated audio :</span>
                     {audioLoader && <span className="text-sm">your audio is being generated...</span>}
-                    {audioLoader ? <CgSpinner className="animate-spin text-3xl" /> : <button className="xl:text-lg text-sm flex bg-gray-200 p-2 rounded-xl w-fit items-center " onClick={handleAudioGeneration}>generate audio&nbsp; <RiAiGenerate /></button>}
+                    {audioLoader ? <CgSpinner className="animate-spin text-3xl" /> : <button className="xl:text-lg text-sm flex bg-gray-200 p-2 rounded-xl w-fit items-center " onClick={handleAudioGeneration}>generate audio&nbsp; <RiAiGenerate /> &nbsp; <span className="text-sm">5vx</span></button>}
                     {audioUrl!==null && 
                       <audio controls controlsList="nodownload">
                         <source src={`data:audio/mp3;base64,${audioUrl}`} type="audio/mpeg"/>
@@ -297,7 +296,7 @@ const handleJoinWaitlist = async() => {
                         <span className="text-sm mr-8 cursor-pointer flex gap-2 items-center justify-center"><MdUpload className="text-5xl" />pick your own art</span>
                         {
                           thumbnailLoader ? <CgSpinner className="animate-spin text-3xl" /> :
-                            <button className="xl:text-lg text-sm inline-block bg-gray-200 p-2 rounded-xl w-fit h-fit items-center" onClick={handleGenerateThumbnail}>generate thumbnail&nbsp; <RiAiGenerate className="inline-block"/></button>
+                            <button className="xl:text-lg text-sm inline-block bg-gray-200 p-2 rounded-xl w-fit h-fit items-center" onClick={handleGenerateThumbnail}>generate thumbnail&nbsp; <RiAiGenerate className="inline-block"/>  &nbsp; <span className="text-sm">15vx</span></button>
                         }
                       </div>
                     </div>
@@ -319,18 +318,14 @@ const handleJoinWaitlist = async() => {
               joinedWaitlist !== null ? !joinedWaitlist?<div className="text-xl mt-20 items-start justify-center flex flex-col">
                   <span className="bg-lime-200 font-bold w-fit flex items-center justify-center gap-2 py-2 px-12 border border-black rounded-xl cursor-pointer" onClick={handleJoinWaitlist}>
                     {!isJoiningWaitlits?<span className="flex items-center gap-2">
-                      Enter Waitlist<CgLink/>
+                      Become a Creator<CgLink/>
                     </span>:<span className="flex items-center gap-2"><CgSpinner className="animate-spin"/>joining...</span>}
                   </span>
                   <p className="text-lg flex flex-col font-normal text-gray-600 px-4 py-2">
-                      <span>benifits : </span>
-                      - get extra 50 voxcoins <br/>
-                      - early access <br />
-                      - early insights <br />
-                      - more reach because of early creator-ship
+                      - get free 50 voxcoins
                   </p>
               </div>:<div className="flex mt-20 bg-lime-200 p-4 rounded-xl w-fit cursor-not-allowed">
-                      <span className="flex gap-2 items-center"><FaCheckCircle/> Already joined waitlist</span>
+                      <span className="flex gap-2 items-center"><FaCheckCircle/> You are now a creator ! <br />Refresh Page to start</span>
                 </div>:<div className="flex items-center mt-20 gap-2"><CgSpinner className="animate-spin"/>loading...</div>}
             </div>
           </div>

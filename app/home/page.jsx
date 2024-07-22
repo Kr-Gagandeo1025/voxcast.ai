@@ -9,44 +9,20 @@ import HomeTopBar from "@/components/HomeTopBar";
 import ContinuePlaying from "@/components/ContinuePlaying";
 import Image from "next/image";
 import ArtistLogo from "@/components/ArtistLogo";
+import { useAudioPlayer } from "@/providers/AudioPlayerContext";
+import { useData } from "@/providers/DataContext";
 
 const Home = () => {
-    const [isTrackPlaying, setIsTrackPlaying] = useState(false);
-    const [podcasts, setPodcasts] = useState(null);
-    const [newRelease, setNewRelease] = useState(null);
+    const {podcastData, newRelease} = useData();
     const [playingPodcastData, setPlayingPodcastData] = useState(null);
     const [sideBarState,setSideBarState] = useState("hidden");
-
-    useEffect(() => {
-        const fetchPodcasts = async () => {
-            try {
-                const response = await fetch(`/api/get-podcast`,{
-                    method:"GET",
-                    cache: 'no-store',
-                    next:{
-                        revalidate:0,
-                    }
-                });
-                if (!response.ok) {
-                    throw new Error('Failed to fetch podcasts');
-                }
-                const data = await response.json();
-                setPodcasts(data.trending_podcasts);
-                setNewRelease(data.new_release);
-                console.log(podcasts)
-            } catch (error) {
-                console.error('Error fetching podcasts:', error);
-        
-            }
-        };
-
-        fetchPodcasts();
-    },[]);
+    const {isTrackPlaying, setPlayerData, setIsTrackPlaying} = useAudioPlayer();
 
     const setPlayer = async(id,title,thumbnail,username,plays) => {
         console.log(id);
-        setIsTrackPlaying(true);
+        setPlayerData(null);
         setPlayingPodcastData(null);
+        setIsTrackPlaying(true);
         try{
           const response = await fetch('/api/get-podcast-audio',{
             method:"POST",
@@ -67,6 +43,7 @@ const Home = () => {
               "author":username,
               "plays":plays
             })
+            setPlayerData(playingPodcastData);
           }else{
             toast.error('Audio Not Found...!');
           }
@@ -122,11 +99,11 @@ const Home = () => {
                             </div>
                         </div>
                     </div>
-                    {podcasts?<div className="h-full">
+                    {podcastData && newRelease?<div className="h-full">
                       <div className="mt-6 p-4 bg-lime-100 rounded-2xl">
                           <span className="xl:text-3xl text-2xl flex justify-between items-baseline font-bold">Trending <span className="xl:text-lg text-sm text-gray-400">show more</span></span>
                           <div className="my-2 flex overflow-x-scroll gap-4 items-end">
-                              {podcasts?.map((pd, index) => (
+                              {podcastData?.map((pd, index) => (
                                   <div key={index} onClick={() => setPlayer(pd._id,pd.podcast_title,pd.podcast_thumbnail,pd.username,pd.plays)}>
                                       <PodcastCard
                                           id={pd._id}
@@ -160,7 +137,7 @@ const Home = () => {
                     </div>:<div className="flex h-full items-center justify-center text-xl"><CgSpinner className="animate-spin"/></div>}
                 </div>
                 {isTrackPlaying &&
-                        <PodcastPlayer playerData={playingPodcastData}/>
+                        <PodcastPlayer/>
                 }
             </div>
         </main>
