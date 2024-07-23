@@ -13,6 +13,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useUser } from "@clerk/nextjs";
 import HomeTopBar from "@/components/HomeTopBar";
 import Link from "next/link";
+import { useData } from "@/providers/DataContext";
 
 const Create = () => {
   const voice_options = ['Alloy', 'Echo', 'Fable', 'Onyx', 'Nova', 'Shimmer'];
@@ -39,6 +40,7 @@ const Create = () => {
   const useremailId = user?.emailAddresses[0].emailAddress;
   const fullname = user?.fullName;
   const emailId = user?.emailAddresses[0].emailAddress;
+  const {voxcoins,setVoxcoins} = useData();
 
   useEffect(()=>{
     const getWaitlist = async() => {
@@ -119,6 +121,23 @@ const handleJoinWaitlist = async() => {
     }
   };
 
+  const UpdateVoxcoins = async () =>{
+    try{
+      const resp = await fetch("/api/update-voxcoins",{
+        method: "POST",
+        headers: {
+          'Content-Type':'application/json',
+        },
+        body: JSON.stringify({
+          username:username,
+          voxc:voxcoins,
+        }),
+      });
+    }catch(e){
+      console.log("Cannot Update Voxcoins");
+    }
+  }
+
   const handlePublish = async(e) => {
     e.preventDefault();
     if(podcastTitle !== "" && podcastStory !== "" && audioUrl !== null && selectedCategory !== null){
@@ -142,7 +161,8 @@ const handleJoinWaitlist = async() => {
         const result = await response.json();
         if(response.ok){
           toast.success(`Podcast Upload Success ! with ID: ${result.id} for @${username}`);
-          handleDiscard();
+          UpdateVoxcoins();
+          // handleDiscard();
         }else{
           toast.error("unable to upload...");
         }
@@ -159,15 +179,19 @@ const handleJoinWaitlist = async() => {
   const handleGenerateStory = async () => {
     setStoryLoader(true);
     try {
-      if (podcastStory !== "") {
-        const genStory = await getStory(podcastStory);
-        setPodcastStory(genStory);
-      } else if (podcastTitle !== "") {
-        const genStory = await getStory(podcastTitle);
-        setPodcastStory(genStory);
-        setStoryCharCount(podcastStory.length)
-      } else {
-        toast.error("Please atleast enter a title!!")      }
+      const textToGen = (podcastStory!==""?podcastStory:podcastTitle);
+      if (textToGen !== "") {
+        if(voxcoins >= 5){
+          const genStory = await getStory(textToGen);
+          setPodcastStory(genStory);
+          setStoryCharCount(podcastStory.length);
+          setVoxcoins(voxcoins-5);
+        }else{
+          toast.error("Insufficient Voxcoins !");
+        }
+      }else {
+        toast.error("Please atleast enter a title!!")
+      }
     } catch (e) {
       console.log(e);
       toast.error("Ohh noo!! Seems like our Ai is off duty today!");
@@ -202,8 +226,13 @@ const handleJoinWaitlist = async() => {
     if(podcastTitle!==""){
       setThumbnailLoader(true);
       try{
-        const response = await getThumbnail(podcastTitle);
-        setThumbnail(response.b64_json);
+        if(voxcoins >= 15){
+          const response = await getThumbnail(podcastTitle);
+          setThumbnail(response.b64_json);
+          setVoxcoins(voxcoins-5);
+        }else{
+          toast.error("Insufficient Voxcoins !");
+        }
       }catch(e){
         toast.error("Ohh nooo! Try Again...")
         console.log(e)
@@ -218,10 +247,15 @@ const handleJoinWaitlist = async() => {
   const handleAudioGeneration = async () => {
     if(selectedVoice && podcastStory!==""){
       try{
-        setAudioLoader(true);
-        const response = await getAIAudio(podcastStory,selectedVoice);
-        setAudioUrl(null);
-        setAudioUrl(response);
+        if(voxcoins >= 5){
+          setAudioLoader(true);
+          const response = await getAIAudio(podcastStory,selectedVoice);
+          setAudioUrl(null);
+          setAudioUrl(response);
+          setVoxcoins(voxcoins-5);
+        }else{
+          toast.error("Insufficient Voxcoins !");
+        }
       }catch(e){
         toast.error("Cannot Generate Audio! Sorry!!")
         console.log(e);
