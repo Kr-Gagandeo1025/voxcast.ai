@@ -162,7 +162,7 @@ const handleJoinWaitlist = async() => {
         if(response.ok){
           toast.success(`Podcast Upload Success ! with ID: ${result.id} for @${username}`);
           UpdateVoxcoins();
-          // handleDiscard();
+          handleDiscard();
         }else{
           toast.error("unable to upload...");
         }

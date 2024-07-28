@@ -5,6 +5,7 @@ import { CgBookmark, CgHeadset, CgSpinner } from 'react-icons/cg'
 import { TbRewindBackward10, TbRewindForward10 } from "react-icons/tb";
 import { MdPauseCircle, MdPlayCircle, MdVolumeUp } from 'react-icons/md'
 import { useAudioPlayer } from '@/providers/AudioPlayerContext';
+import toast, { Toaster } from 'react-hot-toast';
 
 const PodcastPlayer = () => {
     const {
@@ -31,6 +32,8 @@ const PodcastPlayer = () => {
 
 
   return (
+    <>
+    <Toaster/>
     <div className='w-full h-32 text-4xl p-0 flex justify-center items-center bg-white transition-all ease-in-out border border-black rounded-xl '>
         {playerData!==null && 
         <div className='flex justify-between p-2 h-full items-center w-full text-3xl gap-3'>
@@ -43,7 +46,7 @@ const PodcastPlayer = () => {
                             <span className='lg:text-sm text-xs text-gray-500'>@{playerData.author}</span>
                             <span className='lg:text-sm text-xs text-gray-500 flex items-center gap-2'><CgHeadset/>{playerData.plays}</span>
                         </div>
-                        <button><CgBookmark className='text-3xl'/></button>
+                        <button><CgBookmark className='text-3xl' onClick={()=>{toast.error("Save feature coming soon")}}/></button>
                     </div>
                 </div>
             </div>
@@ -76,6 +79,7 @@ const PodcastPlayer = () => {
                 <span className='flex items-center text-lg gap-2 m-10'><CgSpinner className='animate-spin'/> loading...</span>
             </div>}
     </div>
+    </>
   )
 }
 

@@ -49,7 +49,6 @@ const Home = () => {
           }
         }catch(e){
           toast.error("Cannot get audio at the moment :(");
-          console.log(e);
         }
         try{
             const response = await fetch("/api/play-count",{
@@ -101,7 +100,7 @@ const Home = () => {
                     </div>
                     {podcastData && newRelease?<div className="h-full">
                       <div className="mt-6 p-4 bg-lime-100 rounded-2xl">
-                          <span className="xl:text-3xl text-2xl flex justify-between items-baseline font-bold">Trending <span className="xl:text-lg text-sm text-gray-400">show more</span></span>
+                          <span className="xl:text-3xl text-2xl flex justify-between items-baseline font-bold">Trending </span>
                           <div className="my-2 flex overflow-x-scroll gap-4 items-end">
                               {podcastData?.map((pd, index) => (
                                   <div key={index} onClick={() => setPlayer(pd._id,pd.podcast_title,pd.podcast_thumbnail,pd.username,pd.plays)}>
@@ -118,7 +117,7 @@ const Home = () => {
                           </div>
                       </div>
                       <div className="mt-6 p-4 bg-lime-100 rounded-2xl">
-                          <span className="xl:text-3xl text-2xl ml-2 flex justify-between items-baseline font-bold">New Release <span className="xl:text-lg text-sm text-gray-400">show more</span></span>
+                          <span className="xl:text-3xl text-2xl ml-2 flex justify-between items-baseline font-bold">New Release</span>
                           <div className="my-2 flex gap-4 overflow-x-scroll items-end">
                               {newRelease?.map((pd, index) => (
                                   <div key={index} onClick={() => setPlayer(pd._id,pd.podcast_title,pd.podcast_thumbnail,pd.username)}>
