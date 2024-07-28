@@ -1,6 +1,8 @@
 import { MuseoModerno } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider} from "@clerk/nextjs";
+import { AudioPlayerProvider } from "@/providers/AudioPlayerContext";
+import { DataProvider } from "@/providers/DataContext";
 
 const museo = MuseoModerno({ subsets: ["latin"], display:"swap" });
 
@@ -13,11 +15,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={museo.className}>
-          {children}
-          </body>
-      </html>
+      <DataProvider>
+        <AudioPlayerProvider>
+          <html lang="en">
+            <body className={museo.className}>
+              {children}
+              </body>
+          </html>
+        </AudioPlayerProvider>
+      </DataProvider>
     </ClerkProvider>
   );
 }
