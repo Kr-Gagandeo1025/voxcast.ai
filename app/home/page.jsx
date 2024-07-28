@@ -7,8 +7,6 @@ import toast, { Toaster } from "react-hot-toast";
 import { CgSpinner } from "react-icons/cg";
 import HomeTopBar from "@/components/HomeTopBar";
 import ContinuePlaying from "@/components/ContinuePlaying";
-import Image from "next/image";
-import ArtistLogo from "@/components/ArtistLogo";
 import { useAudioPlayer } from "@/providers/AudioPlayerContext";
 import { useData } from "@/providers/DataContext";
 
@@ -26,7 +24,7 @@ const Home = () => {
         setRecentPodcasts(storedPodcasts);
     }, []);
     
-    const setPlayer = async (id, title, username, plays) => {
+    const setPlayer = async (id, title, username, plays, thumbnail) => {
         console.log("Setting player for podcast ID:", id);
         setPlayerData(null);
         setPlayingPodcastData(null);
@@ -49,7 +47,8 @@ const Home = () => {
                     title: title,
                     audio: base64_audio,
                     author: username,
-                    plays: plays
+                    plays: plays,
+                    thumbnail: thumbnail,
                 };
                 console.log("Fetched podcast data:", podcastData);
                 setPlayingPodcastData(podcastData);
@@ -131,7 +130,7 @@ const Home = () => {
                             <span className="xl:text-3xl text-2xl flex justify-between items-baseline font-bold">Trending </span>
                             <div className="my-2 flex overflow-x-scroll gap-4 items-end">
                                 {podcastData?.map((pd) => (
-                                    <div key={pd._id} onClick={() => setPlayer(pd._id, pd.podcast_title, pd.username, pd.plays)}>
+                                    <div key={pd._id} onClick={() => setPlayer(pd._id, pd.podcast_title, pd.username, pd.plays,pd.podcast_thumbnail)}>
                                         <PodcastCard
                                             id={pd._id}
                                             title={pd.podcast_title}
@@ -148,7 +147,7 @@ const Home = () => {
                             <span className="xl:text-3xl text-2xl ml-2 flex justify-between items-baseline font-bold">New Release </span>
                             <div className="my-2 flex gap-4 overflow-x-scroll items-end">
                                 {newRelease?.map((pd) => (
-                                    <div key={pd._id} onClick={() => setPlayer(pd._id, pd.podcast_title, pd.username)}>
+                                    <div key={pd._id} onClick={() => setPlayer(pd._id, pd.podcast_title, pd.username, pd.plays, pd.podcast_thumbnail)}>
                                         <PodcastCard
                                             id={pd._id}
                                             title={pd.podcast_title}

@@ -38,7 +38,9 @@ const PodcastPlayer = () => {
         {playerData!==null && 
         <div className='flex justify-between p-2 h-full items-center w-full text-3xl gap-3'>
             <div className='flex gap-4'>
-                <Image src={`data:image/jpeg;base64,${playerData.thumbnail}`} height={100} width={100} alt='pd-icon' className='rounded-lg border border-black border-dashed lg:h-24 h-12 w-auto'/>
+                {playerData.thumbnail&&
+                    <Image src={`data:image/jpeg;base64,${playerData.thumbnail}`} height={100} width={100} alt='pd-icon' className='rounded-lg border border-black border-dashed lg:h-24 h-12 w-auto'/>
+                }
                 <div className='flex flex-col justify-center items-start'>
                     <span className='lg:text-xl text-sm font-bold'>{playerData.title}</span>
                     <div className='flex items-end gap-4'>
