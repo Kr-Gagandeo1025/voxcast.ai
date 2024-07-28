@@ -281,27 +281,65 @@ const handleJoinWaitlist = async() => {
         setSideBarState("hidden");
     }
   }
+  const handleThumbnailUpload = (e) => {
+    const file = e.target.files[0];
+    const allowedTypes = ['image/jpeg', 'image/png'];
+
+    if (file && allowedTypes.includes(file.type)) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setThumbnail(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      toast.error('Please upload a valid image file (PNG or JPG)');
+    }
+  };
 
   return (
-      <div className="h-screen md:p-4 p-1">
-        <Toaster/>
-        <SidePanel  state={sideBarState} page={"create"}/>
-        <main className="h-full flex flex-col ">
-            <HomeTopBar actionbtn={handleSideBarState} sidebarState={sideBarState}/>
-          <div className="w-full h-full ">
-            <div className="px-4 ml-2 flex flex-col overflow-y-scroll h-screen no-scrollbar">
-              <span>Hello, @{user?.username}</span>
-              <span className='xl:text-3xl text-2xl inline-block'>give your imagined podcast wings with voxcast.ai <WiStars className="text-yellow-500 text-5xl inline-block" /></span>
-              {isCreator?<div className="pt-8 xl:text-2xl text-xl flex flex-col gap-8">
+    <div className="h-screen md:p-4 p-1">
+      <Toaster />
+      <SidePanel state={sideBarState} page={"create"} />
+      <main className="h-full flex flex-col ">
+        <HomeTopBar actionbtn={handleSideBarState} sidebarState={sideBarState} />
+        <div className="w-full h-full ">
+          <div className="px-4 ml-2 flex flex-col overflow-y-scroll h-screen no-scrollbar">
+            <span>Hello, @{user?.username}</span>
+            <span className='xl:text-3xl text-2xl inline-block'>
+              give your imagined podcast wings with voxcast.ai <WiStars className="text-yellow-500 text-5xl inline-block" />
+            </span>
+            {isCreator ? (
+              <div className="pt-8 xl:text-2xl text-xl flex flex-col gap-8">
                 <label htmlFor="podcast-title" className="flex flex-col">
                   name your podcast :
-                  <input type="text" id="podcast-title" className="border-b border-black bg-transparent outline-none mt-4 text-lg" value={podcastTitle} onChange={handleTitle} />
+                  <input
+                    type="text"
+                    id="podcast-title"
+                    className="border-b border-black bg-transparent outline-none mt-4 text-lg"
+                    value={podcastTitle}
+                    onChange={handleTitle}
+                  />
                 </label>
                 <label htmlFor="podcast-story" className="flex flex-col">
                   <span className="flex justify-between xl:items-center xl:flex-row flex-col items-start">
-                    <span>give your podcast a story : <span className="text-sm text-gray-400">{storyCharCount}/{maxStoryChar} chars</span></span> 
-                    {storyLoader ? <CgSpinner className="animate-spin text-3xl" /> : <button className="flex items-center xl:text-lg text-sm bg-gray-200 p-2 rounded-xl" onClick={handleGenerateStory}>generate story &nbsp; <RiAiGenerate /> &nbsp; <span className="text-sm">5vx</span> </button>}</span>
-                  <textarea id="podcast-title" className="border-b border-black bg-transparent outline-none mt-4 text-lg" rows={10} value={podcastStory} onChange={handleStory} />
+                    <span>
+                      give your podcast a story : <span className="text-sm text-gray-400">{storyCharCount}/{maxStoryChar} chars</span>
+                    </span>
+                    {storyLoader ? (
+                      <CgSpinner className="animate-spin text-3xl" />
+                    ) : (
+                      <button className="flex items-center xl:text-lg text-sm bg-gray-200 p-2 rounded-xl" onClick={handleGenerateStory}>
+                        generate story &nbsp; <RiAiGenerate /> &nbsp; <span className="text-sm">5vx</span>
+                      </button>
+                    )}
+                  </span>
+                  <textarea
+                    id="podcast-title"
+                    className="border-b border-black bg-transparent outline-none mt-4 text-lg"
+                    rows={10}
+                    value={podcastStory}
+                    onChange={handleStory}
+                  />
                 </label>
                 <div className="flex w-full flex-col lg:flex-row gap-4">
                   <label className="flex flex-col lg:flex-row gap-4 items-start w-full lg:w-1/2">
@@ -311,61 +349,108 @@ const handleJoinWaitlist = async() => {
                   <div className="flex flex-col gap-4 w-full lg:w-1/2 border-t-2 lg:border-t-0 lg:border-l-2 lg:pl-2 pt-4 lg:pt-0">
                     <span>your generated audio :</span>
                     {audioLoader && <span className="text-sm">your audio is being generated...</span>}
-                    {audioLoader ? <CgSpinner className="animate-spin text-3xl" /> : <button className="xl:text-lg text-sm flex bg-gray-200 p-2 rounded-xl w-fit items-center " onClick={handleAudioGeneration}>generate audio&nbsp; <RiAiGenerate /> &nbsp; <span className="text-sm">5vx</span></button>}
-                    {audioUrl!==null && 
+                    {audioLoader ? (
+                      <CgSpinner className="animate-spin text-3xl" />
+                    ) : (
+                      <button className="xl:text-lg text-sm flex bg-gray-200 p-2 rounded-xl w-fit items-center " onClick={handleAudioGeneration}>
+                        generate audio&nbsp; <RiAiGenerate /> &nbsp; <span className="text-sm">5vx</span>
+                      </button>
+                    )}
+                    {audioUrl !== null && (
                       <audio controls controlsList="nodownload">
-                        <source src={`data:audio/mp3;base64,${audioUrl}`} type="audio/mpeg"/>
-                          no audio support
-                      </audio>}
+                        <source src={`data:audio/mp3;base64,${audioUrl}`} type="audio/mpeg" />
+                        no audio support
+                      </audio>
+                    )}
                   </div>
                 </div>
                 <div className="mt-8 flex xl:flex-row flex-col">
                   <div className="flex xl:w-1/2 flex-col">
-                    <span>get your masterpiece a thumbnail : </span>
+                    <span>get your masterpiece a thumbnail :</span>
                     <div className="p-2 flex items-end">
                       <div className="h-[200px] w-[200px] border rounded-xl flex justify-center items-center">
-                        {thumbnail ? <Image src={`data:image/jpeg;base64,${thumbnail}`} height={200} width={200} alt="podcast thumbnail" className="rounded-xl" /> : <span className="text-gray-400">no-img</span>}
+                        {thumbnail ? (
+                          <Image src={thumbnail} height={200} width={200} alt="podcast thumbnail" className="rounded-xl" />
+                        ) : (
+                          <span className="text-gray-400">no-img</span>
+                        )}
                       </div>
                       <div className="flex flex-col gap-4 ml-4">
-                        <span className="text-sm mr-8 cursor-pointer flex gap-2 items-center justify-center"><MdUpload className="text-5xl" />pick your own art</span>
-                        {
-                          thumbnailLoader ? <CgSpinner className="animate-spin text-3xl" /> :
-                            <button className="xl:text-lg text-sm inline-block bg-gray-200 p-2 rounded-xl w-fit h-fit items-center" onClick={handleGenerateThumbnail}>generate thumbnail&nbsp; <RiAiGenerate className="inline-block"/>  &nbsp; <span className="text-sm">15vx</span></button>
-                        }
+                        <label className="text-sm mr-8 cursor-pointer flex gap-2 items-center justify-center">
+                          <MdUpload className="text-5xl" />
+                          <input
+                            type="file"
+                            accept="image/jpeg, image/png"
+                            className="hidden"
+                            onChange={handleThumbnailUpload}
+                          />
+                          pick your own art
+                        </label>
+                        {thumbnailLoader ? (
+                          <CgSpinner className="animate-spin text-3xl" />
+                        ) : (
+                          <button className="xl:text-lg text-sm inline-block bg-gray-200 p-2 rounded-xl w-fit h-fit items-center" onClick={handleGenerateThumbnail}>
+                            generate thumbnail&nbsp; <RiAiGenerate className="inline-block" /> &nbsp; <span className="text-sm">15vx</span>
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
                   <div className="flex flex-col border-l-2 pl-2">
-                    <span>Select a Category : </span>
+                    <span>Select a Category :</span>
                     <VoiceDropdown options={categories_option} onSelect={handleCategorySelect} />
                   </div>
                 </div>
-                {user &&
+                {user && (
                   <div className="flex flex-wrap-reverse justify-end gap-4 pb-2">
-                    <button className="flex items-center border rounded-xl px-4 py-2" onClick={handleDiscard}>Discard&nbsp;<MdDelete /></button>
-                    {isPublishing?<CgSpinner className="animate-spin text-3xl"/>:
-                    <button className="flex items-center border rounded-xl px-4 py-2" onClick={handlePublish}>Publish&nbsp;<FaGlobe /></button>}
+                    <button className="flex items-center border rounded-xl px-4 py-2" onClick={handleDiscard}>
+                      Discard&nbsp;<MdDelete />
+                    </button>
+                    {isPublishing ? (
+                      <CgSpinner className="animate-spin text-3xl" />
+                    ) : (
+                      <button className="flex items-center border rounded-xl px-4 py-2" onClick={handlePublish}>
+                        Publish&nbsp;<FaGlobe />
+                      </button>
+                    )}
                   </div>
-                }
+                )}
               </div>
-              :
-              joinedWaitlist !== null ? !joinedWaitlist?<div className="text-xl mt-20 items-start justify-center flex flex-col">
-                  <span className="bg-lime-200 font-bold w-fit flex items-center justify-center gap-2 py-2 px-12 border border-black rounded-xl cursor-pointer" onClick={handleJoinWaitlist}>
-                    {!isJoiningWaitlits?<span className="flex items-center gap-2">
-                      Become a Creator<CgLink/>
-                    </span>:<span className="flex items-center gap-2"><CgSpinner className="animate-spin"/>joining...</span>}
-                  </span>
-                  <p className="text-lg flex flex-col font-normal text-gray-600 px-4 py-2">
-                      - get free 50 voxcoins
-                  </p>
-              </div>:<div className="flex mt-20 bg-lime-200 p-4 rounded-xl w-fit cursor-not-allowed">
-                      <span className="flex gap-2 items-center"><FaCheckCircle/> You are now a creator ! <br />Refresh Page to start</span>
-                </div>:<div className="flex items-center mt-20 gap-2"><CgSpinner className="animate-spin"/>loading...</div>}
-            </div>
+            ) : joinedWaitlist !== null ? !joinedWaitlist ? (
+              <div className="text-xl mt-20 items-start justify-center flex flex-col">
+                <span className="bg-lime-200 font-bold w-fit flex items-center justify-center gap-2 py-2 px-12 border border-black rounded-xl cursor-pointer" onClick={handleJoinWaitlist}>
+                  {!isJoiningWaitlits ? (
+                    <span className="flex items-center gap-2">
+                      Become a Creator<CgLink />
+                    </span>
+                  ) : (
+                    <span className="flex items-center gap-2">
+                      <CgSpinner className="animate-spin" />
+                      joining...
+                    </span>
+                  )}
+                </span>
+                <p className="text-lg flex flex-col font-normal text-gray-600 px-4 py-2">- get free 50 voxcoins</p>
+              </div>
+            ) : (
+              <div className="flex mt-20 bg-lime-200 p-4 rounded-xl w-fit cursor-not-allowed">
+                <span className="flex gap-2 items-center">
+                  <FaCheckCircle /> You are now a creator ! <br />
+                  Refresh Page to start
+                </span>
+              </div>
+            ) : (
+              <div className="flex items-center mt-20 gap-2">
+                <CgSpinner className="animate-spin" />
+                loading...
+              </div>
+            )}
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
+    </div>
   );
+  
 };
 
 export default Create;
