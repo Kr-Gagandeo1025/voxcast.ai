@@ -9,25 +9,20 @@ export async function POST(req) {
     console.log(keyword);
     try{
         await dbConnect();
-        // const search_result = await Podcast.aggregate([
-        //     {
-        //         $search:{
-        //             "text":{
-        //                 "path":"podcast_title",
-        //                 "query":keyword,
-        //                 "fuzzy":{
-        //                     "maxEdits":2
-        //                 }
-        //             }
-        //         }
-        //     },{
-        //         $project:{
-        //             "_id":1,
-        //             "podcast_title":1
-        //         }
-        //     }
-        // ])
-        const search_result = await Podcast.find({podcast_title:keyword},{podcast_audio:0});
+        const pipeline = [
+            {
+                $search: {
+                index: "searchPodcasts",
+                text: {
+                    query: keyword,
+                    path: {
+                    wildcard: "*"
+                    }
+                }
+                }
+            }
+        ]
+        const search_result = await Podcast.aggregate(pipeline).limit(4);
         return NextResponse.json({search_result});
     }catch(e){
         console.log(e);
