@@ -77,6 +77,7 @@ const Search = () => {
   }
 
   const getSearchResults = async ()=>{
+    setSearchLoading(true);
     const response  = await fetch("/api/get-search-podcasts",{
       method:"POST",
       headers:{
@@ -88,6 +89,7 @@ const Search = () => {
     })
     const result = await response.json();
     setSearchResults(result?.search_result);
+    setSearchLoading(false);
   }
   
   const handleSearchChange = (e) => {
@@ -98,7 +100,7 @@ const Search = () => {
       setTimeout(()=>{
         getSearchResults();
         setSearchLoading(false);
-      },2000)
+      },3000)
     )
   };
   const handleSideBarState = () => {
