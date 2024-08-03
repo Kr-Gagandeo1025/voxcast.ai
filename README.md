@@ -4,11 +4,11 @@
 
 Voxcast.ai is an AI-powered podcast platform that assists people with creative podcast ideas by regenerating their scripts or outlines into podcast-style conversations. Users can choose from a range of listed character voices to bring their content to life and publish it. Purely AI-generated podcasts will be labeled to differentiate them from human-created content.
 
-[Visit our website](https://voxcast-ai.vercel.app)
-
 - **Bring Your Ideas to Life with AI**
 - **Transform Scripts into Engaging Podcasts**
 - **Choose from a Variety of Character Voices**
+
+[Visit our website](https://voxcast-ai.vercel.app)
 
 ## Features
 
