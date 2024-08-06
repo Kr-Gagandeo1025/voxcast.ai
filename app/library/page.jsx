@@ -1,7 +1,9 @@
 "use client"
 import HomeTopBar from "@/components/HomeTopBar"
 import ManagePodcast from "@/components/ManagePodcast";
+import PodcastPlayer from "@/components/PodcastPlayer";
 import SidePanel from "@/components/SidePanel"
+import { useAudioPlayer } from "@/providers/AudioPlayerContext";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -10,6 +12,7 @@ import { IoBookmark } from "react-icons/io5";
 
 
 const Page = () => {
+  const {isTrackPlaying} = useAudioPlayer();
   const [user_podcasts,set_user_podcasts] = useState(null);
   const {user} = useUser();
   const username = user?.username;
@@ -63,7 +66,7 @@ const Page = () => {
         <SidePanel state={sideBarState} page={"library"}/>
         <div className="w-full flex flex-col">
            <HomeTopBar actionbtn={handleSideBarState} sidebarState={sideBarState}/>
-           <div className="flex flex-col overflow-y-scroll h-screen no-scrollbar w-full">
+           <div className="flex flex-col overflow-y-scroll h-screen no-scrollbar w-full mt-4">
             <div className="flex items-center lg:gap-20 gap-12 lg:flex-row flex-col  bg-lime-200 rounded-xl p-3">
               <div className="flex flex-col gap-4 items-center bg-white border border-black rounded-xl p-4 max-w-[350px]">
                 <span className="text-3xl border-b border-black flex justify-between items-baseline">Saved Podcasts</span>
@@ -85,9 +88,12 @@ const Page = () => {
               {user_podcasts===null && <div className="flex gap-2 items-center text-xl"><CgSpinner className="animate-spin"/>loading</div>}
             </div>
            </div>
+           {isTrackPlaying &&
+              <PodcastPlayer/>
+            }
         </div>
     </main>
   )
 }
 
-export default Page
+export default Page;
