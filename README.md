@@ -1,4 +1,5 @@
 # Voxcast.ai
+![Logo](https://raw.githubusercontent.com/prernaxa/voxcast.ai/main/public/images/voxcast%20logo.jpg)
 
 **Unleash Your Creativity with AI-Generated Podcasts**
 
